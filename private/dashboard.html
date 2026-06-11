@@ -8,123 +8,172 @@
     <link rel="stylesheet" href="/style/style.css">
 </head>
 <body>
-    <div class="container">
-        <nav>
-            <a href="/private/dashboard.html" class="nav-brand">
-                <span class="brand-icon">🛡️</span> Cyber Audit Pro
-                <span class="badge badge-orange" id="userRoleBadge"></span>
-            </a>
-            <div class="nav-links">
-                <span id="userName" style="color: var(--text-secondary); font-size: 0.9rem;"></span>
-                <span id="companyName" style="color: var(--text-tertiary); font-size: 0.8rem;"></span>
-                <button id="logoutBtn" class="btn btn-ghost btn-sm">Logout</button>
+    <div class="app-layout">
+        
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="/private/dashboard.html" class="sidebar-brand">
+                    <span class="brand-icon">🛡️</span> Cyber Audit Pro
+                </a>
             </div>
-        </nav>
+            
+            <nav class="sidebar-nav">
+                <a href="/private/dashboard.html" class="menu-item active">
+                    <span class="icon">📊</span> Dashboard
+                </a>
+                <a href="#" class="menu-item" onclick="alert('In arrivo: area documenti.')">
+                    <span class="icon">📁</span> Documenti
+                </a>
+                <a href="#" class="menu-item" onclick="alert('In arrivo: impostazioni account.')">
+                    <span class="icon">⚙️</span> Impostazioni
+                </a>
+            </nav>
 
-        <!-- Welcome & Stats -->
-        <section id="welcomeSection" class="mb-2">
-            <h1><span class="gradient-text">Dashboard</span></h1>
-            <p id="welcomeMessage">Benvenuto nella tua area operativa.</p>
-        </section>
-
-        <div class="stat-grid" id="statsGrid">
-            <div class="stat-card">
-                <div class="stat-value" id="statTotalAudit">0</div>
-                <div class="stat-label">Audit Totali</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="statCompleted">0</div>
-                <div class="stat-label">Completati</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="statInProgress">0</div>
-                <div class="stat-label">In Corso</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="statUsers">0</div>
-                <div class="stat-label">Utenti</div>
-            </div>
-        </div>
-
-        <!-- Audit Section -->
-        <div class="glass-card mb-2">
-            <div class="flex justify-between items-center mb-1">
-                <h2>📋 Audit</h2>
-                <button id="newAuditBtn" class="btn btn-primary btn-sm">+ Nuovo Audit</button>
-            </div>
-            <div class="table-container">
-                <table id="auditTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Data</th>
-                            <th>Creato da</th>
-                            <th>Stato</th>
-                            <th>Azioni</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- populated via JS -->
-                    </tbody>
-                </table>
-                <div class="empty-state" id="auditEmptyState" style="display: none;">
-                    <span class="empty-icon">📋</span>
-                    <p>Nessun audit ancora. Clicca "Nuovo Audit" per iniziare la tua prima valutazione.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Users Section (Manager/Admin only) -->
-        <div class="glass-card" id="usersSection">
-            <h2>👥 Gestione Utenti</h2>
-            <div class="table-container mb-1">
-                <table id="usersTable">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Email</th>
-                            <th>Ruolo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- populated via JS -->
-                    </tbody>
-                </table>
-            </div>
-
-            <hr class="section-divider">
-
-            <h3>Aggiungi Utente</h3>
-            <div id="userAlert" class="alert"></div>
-            <form id="createUserForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <input type="text" id="newUserName" class="form-control" placeholder="Nome completo" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="newUserEmail" class="form-control" placeholder="Email" required>
+            <div class="sidebar-footer">
+                <div class="user-profile-sm">
+                    <div class="user-avatar" id="avatarInitials">US</div>
+                    <div class="user-info">
+                        <span class="name" id="userName">Caricamento...</span>
+                        <span class="role" id="userRoleBadge">...</span>
+                        <span style="font-size: 0.65rem; color: var(--gray-500); margin-top: 2px;" id="companyName">...</span>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <input type="password" id="newUserPassword" class="form-control" placeholder="Password temporanea" required>
-                    </div>
-                    <div class="form-group">
-                        <select id="newUserRole" class="form-control" required>
-                            <option value="User">User (Operativo)</option>
-                            <option value="Manager">Manager</option>
-                        </select>
+                <button id="logoutBtn" class="btn btn-secondary btn-sm btn-block">Esci 🚪</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <div>
+                    <h1><span class="gradient-text">Dashboard Operativa</span></h1>
+                    <p id="welcomeMessage">Benvenuto nella tua area operativa.</p>
+                </div>
+            </header>
+
+            <div class="stat-grid" id="statsGrid">
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-label">AUDIT TOTALI</div>
+                    <div class="stat-value" id="statTotalAudit">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-label">COMPLETATI</div>
+                    <div class="stat-value" id="statCompleted" style="color: var(--success);">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏳</div>
+                    <div class="stat-label">IN CORSO</div>
+                    <div class="stat-value" id="statInProgress" style="color: var(--warning);">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-label">UTENTI STAFF</div>
+                    <div class="stat-value" id="statUsers">0</div>
+                </div>
+            </div>
+
+            <!-- Audit Section -->
+            <div class="modern-card mb-2">
+                <div class="flex justify-between items-center mb-1">
+                    <h2>📋 Elenco Audit</h2>
+                    <button id="newAuditBtn" class="btn btn-primary">+ Nuovo Audit</button>
+                </div>
+                <div class="table-container">
+                    <table id="auditTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Data</th>
+                                <th>Creato da</th>
+                                <th>Stato</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- populated via JS -->
+                        </tbody>
+                    </table>
+                    <div class="empty-state" id="auditEmptyState" style="display: none;">
+                        <span class="empty-icon">📋</span>
+                        <p>Nessun audit ancora. Clicca "Nuovo Audit" per iniziare la tua prima valutazione.</p>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-sm">Aggiungi Utente</button>
-            </form>
-        </div>
+            </div>
+
+            <!-- Users Section (Manager/Admin only) -->
+            <div class="modern-card" id="usersSection">
+                <h2>👥 Gestione Utenti</h2>
+                <div class="table-container mb-1">
+                    <table id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Ruolo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <hr class="section-divider">
+
+                <h3>Aggiungi Utente Staff</h3>
+                <div id="userAlert" class="alert"></div>
+                <form id="createUserForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nome Completo</label>
+                            <input type="text" id="newUserName" class="form-control" placeholder="Mario Rossi" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="newUserEmail" class="form-control" placeholder="mario.rossi@azienda.com" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Password Temporanea</label>
+                            <input type="password" id="newUserPassword" class="form-control" placeholder="Min. 8 caratteri" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Ruolo</label>
+                            <select id="newUserRole" class="form-control" required>
+                                <option value="User">User (Operativo)</option>
+                                <option value="Manager">Manager</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Aggiungi Utente</button>
+                </form>
+            </div>
+            
+            <footer class="footer mt-2" style="text-align: left; padding: 1rem 0; border: none;">
+                <p>© 2026 Cyber Audit Pro</p>
+            </footer>
+        </main>
     </div>
 
-    <footer class="footer">
-        <p>© 2026 Cyber Audit Pro</p>
-    </footer>
     <script src="/private/script/private_script.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', () => initDashboard());</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initDashboard();
+            // Aggiungo logica per le iniziali avatar dinamicamente dopo il fetch
+            const observer = new MutationObserver(() => {
+                const nameStr = document.getElementById('userName').textContent;
+                if(nameStr && nameStr !== 'Caricamento...') {
+                    const initials = nameStr.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
+                    document.getElementById('avatarInitials').textContent = initials;
+                    observer.disconnect();
+                }
+            });
+            observer.observe(document.getElementById('userName'), { childList: true });
+        });
+    </script>
 </body>
 </html>

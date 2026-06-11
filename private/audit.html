@@ -7,44 +7,66 @@
     <link rel="stylesheet" href="/style/style.css">
 </head>
 <body>
-    <div class="container container-md">
-        <nav>
-            <a href="/private/dashboard.html" class="nav-brand">
-                <span class="brand-icon">←</span> Torna alla Dashboard
-            </a>
-            <div class="nav-links">
-                <span class="badge badge-orange" id="auditHeaderStatus">In corso</span>
+    <div class="app-layout">
+        
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="/private/dashboard.html" class="sidebar-brand">
+                    <span class="brand-icon">🛡️</span> Cyber Audit Pro
+                </a>
             </div>
-        </nav>
+            
+            <nav class="sidebar-nav">
+                <a href="/private/dashboard.html" class="menu-item">
+                    <span class="icon">←</span> Torna alla Dashboard
+                </a>
+            </nav>
 
-        <div class="glass-card">
-            <div class="flex justify-between items-center mb-1">
-                <h2>Checklist Valutazione Rischi</h2>
-                <span class="text-sm text-muted">Audit #<span id="currentAuditId"></span></span>
+            <div class="sidebar-footer">
+                <span class="badge badge-orange" id="auditHeaderStatus" style="display: block; text-align: center;">Audit in Corso</span>
             </div>
+        </aside>
 
-            <p class="text-sm mb-2">Rispondi a tutte le domande per generare il report di Gap Analysis. Le risposte negative influenzeranno negativamente il punteggio di rischio.</p>
-
-            <div id="checklistContainer">
-                <div class="text-center" style="padding: 3rem 0;">
-                    <span class="loader" style="display: inline-block;"></span>
-                    <p class="mt-1 text-muted">Caricamento checklist...</p>
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header" style="max-width: 800px; margin: 0 auto 2rem;">
+                <div>
+                    <h1><span class="gradient-text">Esecuzione Audit</span></h1>
+                    <p>Compila la checklist di valutazione rischi.</p>
                 </div>
+            </header>
+
+            <div class="modern-card" style="max-width: 800px; margin: 0 auto;">
+                <div class="flex justify-between items-center mb-1">
+                    <h2>Checklist Valutazione Rischi</h2>
+                    <span class="text-sm text-muted" style="font-weight: 600;">Audit #<span id="currentAuditId"></span></span>
+                </div>
+
+                <p class="text-sm mb-2 text-secondary" style="border-left: 3px solid var(--orange-400); padding-left: 1rem; background: var(--orange-50); padding: 0.75rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;">Rispondi a tutte le domande per generare il report di Gap Analysis. Le risposte negative influenzeranno negativamente il punteggio di rischio.</p>
+
+                <div id="checklistContainer">
+                    <div class="text-center" style="padding: 3rem 0;">
+                        <span class="loader" style="display: inline-block;"></span>
+                        <p class="mt-1 text-muted">Caricamento checklist...</p>
+                    </div>
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="flex justify-between items-center">
+                    <button id="saveDraftBtn" class="btn btn-secondary">💾 Salva Bozza</button>
+                    <button id="completeAuditBtn" class="btn btn-primary">Concludi e Genera Report →</button>
+                </div>
+                <div id="auditAlert" class="alert mt-1"></div>
             </div>
 
-            <hr class="section-divider">
-
-            <div class="flex justify-between items-center">
-                <button id="saveDraftBtn" class="btn btn-secondary btn-sm">💾 Salva Bozza</button>
-                <button id="completeAuditBtn" class="btn btn-primary">Concludi e Genera Report →</button>
-            </div>
-            <div id="auditAlert" class="alert mt-1"></div>
-        </div>
+            <footer class="footer mt-2" style="max-width: 800px; margin: 2rem auto 0; text-align: left; padding: 1rem 0; border: none;">
+                <p>© 2026 Cyber Audit Pro</p>
+            </footer>
+        </main>
     </div>
 
-    <footer class="footer">
-        <p>© 2026 Cyber Audit Pro</p>
-    </footer>
     <script src="/private/script/private_script.js"></script>
     <script>document.addEventListener('DOMContentLoaded', () => initAuditInterface());</script>
 </body>
