@@ -8,9 +8,20 @@ function showAlert(elementId, message, isSuccess = true) {
     const alertEl = document.getElementById(elementId);
     if (!alertEl) return;
     alertEl.textContent = message;
-    alertEl.style.display = 'block';
-    alertEl.className = `alert ${isSuccess ? 'alert-success' : 'alert-error'}`;
-    if (isSuccess) setTimeout(() => alertEl.style.display = 'none', 5000);
+    
+    // Rimuoviamo classi di successo/errore preesistenti
+    alertEl.classList.remove('bg-error-container/20', 'border-error-container/50', 'text-error-container');
+    alertEl.classList.remove('bg-tertiary/20', 'border-tertiary/50', 'text-tertiary');
+    
+    // Aggiungiamo le classi corrette
+    if (isSuccess) {
+        alertEl.classList.add('bg-tertiary/20', 'border-tertiary/50', 'text-tertiary');
+    } else {
+        alertEl.classList.add('bg-error-container/20', 'border-error-container/50', 'text-error-container');
+    }
+    
+    alertEl.classList.remove('hidden');
+    if (isSuccess) setTimeout(() => alertEl.classList.add('hidden'), 5000);
 }
 
 // ---- Logout ----
@@ -45,7 +56,7 @@ async function initDashboard() {
         tbody.innerHTML = '';
 
         if (auditData.success && auditData.data.length > 0) {
-            document.getElementById('auditEmptyState').style.display = 'none';
+            document.getElementById('auditEmptyState').classList.add('hidden');
 
             let completed = 0, inProgress = 0;
             auditData.data.forEach(a => {
@@ -54,15 +65,17 @@ async function initDashboard() {
 
                 const date = new Date(a.data_inizio).toLocaleDateString('it-IT');
                 const statusBadge = a.stato === 'Completato'
-                    ? '<span class="badge badge-success">Completato</span>'
-                    : '<span class="badge badge-orange">In corso</span>';
+                    ? '<span class="inline-block px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-tertiary/20 text-tertiary">Completato</span>'
+                    : '<span class="inline-block px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-error-container text-on-error-container">In Corso</span>';
                 const action = a.stato === 'Completato'
-                    ? `<a href="/private/report.html?id=${a.id}" class="btn btn-secondary btn-sm">Report</a>`
-                    : `<a href="/private/audit.html?id=${a.id}" class="btn btn-outline btn-sm">Riprendi</a>`;
+                    ? `<a href="/private/report.html?id=${a.id}" class="font-label-md text-label-md text-primary-container hover:text-primary transition-colors flex items-center justify-end gap-1">Report <span class="material-symbols-outlined text-sm">arrow_forward</span></a>`
+                    : `<a href="/private/audit.html?id=${a.id}" class="font-label-md text-label-md text-secondary hover:text-white transition-colors flex items-center justify-end gap-1">Riprendi <span class="material-symbols-outlined text-sm">play_arrow</span></a>`;
 
-                tbody.innerHTML += `<tr>
-                    <td>#${a.id}</td><td>${date}</td>
-                    <td>${a.creato_da_nome}</td><td>${statusBadge}</td><td>${action}</td>
+                tbody.innerHTML += `<tr class="hover:bg-white/5 transition-colors group">
+                    <td class="py-3 px-4 font-mono-data text-mono-data text-on-surface-variant text-sm border-l-2 border-transparent group-hover:border-primary-container">#${a.id}<br><span class="text-xs opacity-70">${date}</span></td>
+                    <td class="py-3 px-4 font-body-sm text-body-sm text-on-surface">${a.creato_da_nome}</td>
+                    <td class="py-3 px-4">${statusBadge}</td>
+                    <td class="py-3 px-4 text-right">${action}</td>
                 </tr>`;
             });
 
@@ -70,7 +83,7 @@ async function initDashboard() {
             document.getElementById('statCompleted').textContent = completed;
             document.getElementById('statInProgress').textContent = inProgress;
         } else {
-            document.getElementById('auditEmptyState').style.display = 'block';
+            document.getElementById('auditEmptyState').classList.remove('hidden');
         }
 
         // Fetch utenti (solo Manager/Admin)
@@ -78,21 +91,24 @@ async function initDashboard() {
         if (userRes.ok) {
             const userData = await userRes.json();
             if (userData.success) {
+                document.getElementById('usersSection').classList.remove('hidden');
                 document.getElementById('statUsers').textContent = userData.data.length;
                 const uBody = document.querySelector('#usersTable tbody');
                 uBody.innerHTML = '';
                 userData.data.forEach(u => {
                     const roleBadge = u.nome_ruolo === 'Manager'
-                        ? '<span class="badge badge-orange">Manager</span>'
-                        : '<span class="badge badge-gray">User</span>';
-                    uBody.innerHTML += `<tr>
-                        <td>${u.nome}</td><td>${u.email}</td><td>${roleBadge}</td>
+                        ? '<span class="inline-block px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-primary-container/20 text-primary">Manager</span>'
+                        : '<span class="inline-block px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-surface-variant text-on-surface-variant">User</span>';
+                    uBody.innerHTML += `<tr class="hover:bg-white/5 transition-colors">
+                        <td class="py-3 px-4 font-body-sm text-body-sm text-on-surface">${u.nome}</td>
+                        <td class="py-3 px-4 font-mono-data text-mono-data text-on-surface-variant text-sm">${u.email}</td>
+                        <td class="py-3 px-4">${roleBadge}</td>
                     </tr>`;
                 });
             }
         } else {
-            document.getElementById('usersSection').style.display = 'none';
-            document.getElementById('statUsers').parentElement.style.display = 'none';
+            document.getElementById('usersSection').classList.add('hidden');
+            document.getElementById('statUsers').parentElement.parentElement.classList.add('hidden');
         }
     } catch (err) {
         console.error('Errore caricamento dashboard:', err);

@@ -7,9 +7,20 @@ function showAlert(elementId, message, isSuccess = true) {
     const alertEl = document.getElementById(elementId);
     if (!alertEl) return;
     alertEl.textContent = message;
-    alertEl.style.display = 'block';
-    alertEl.className = `alert ${isSuccess ? 'alert-success' : 'alert-error'}`;
-    if (isSuccess) setTimeout(() => alertEl.style.display = 'none', 5000);
+    
+    // Rimuoviamo classi di successo/errore preesistenti
+    alertEl.classList.remove('bg-error-container/20', 'border-error-container/50', 'text-error-container');
+    alertEl.classList.remove('bg-tertiary/20', 'border-tertiary/50', 'text-tertiary');
+    
+    // Aggiungiamo le classi corrette
+    if (isSuccess) {
+        alertEl.classList.add('bg-tertiary/20', 'border-tertiary/50', 'text-tertiary');
+    } else {
+        alertEl.classList.add('bg-error-container/20', 'border-error-container/50', 'text-error-container');
+    }
+    
+    alertEl.classList.remove('hidden');
+    if (isSuccess) setTimeout(() => alertEl.classList.add('hidden'), 5000);
 }
 
 // ---- Subscribe (register.html) ----
@@ -18,7 +29,7 @@ if (subscribeForm) {
     subscribeForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const loader = document.getElementById('subscribeLoader');
-        if (loader) loader.style.display = 'inline-block';
+        if (loader) loader.classList.remove('hidden');
 
         const data = {
             nome_azienda: document.getElementById('nome_azienda').value.trim(),
@@ -45,7 +56,7 @@ if (subscribeForm) {
         } catch (err) {
             showAlert('subscribeAlert', 'Errore di connessione al server.', false);
         } finally {
-            if (loader) loader.style.display = 'none';
+            if (loader) loader.classList.add('hidden');
         }
     });
 }
@@ -56,7 +67,7 @@ if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const loader = document.getElementById('loginLoader');
-        if (loader) loader.style.display = 'inline-block';
+        if (loader) loader.classList.remove('hidden');
 
         const data = {
             email: document.getElementById('loginEmail').value.trim(),
@@ -80,7 +91,7 @@ if (loginForm) {
         } catch (err) {
             showAlert('loginAlert', 'Errore di connessione al server.', false);
         } finally {
-            if (loader) loader.style.display = 'none';
+            if (loader) loader.classList.add('hidden');
         }
     });
 }

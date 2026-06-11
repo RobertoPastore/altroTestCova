@@ -1,169 +1,239 @@
 <!DOCTYPE html>
-<html lang="it">
+<html class="dark" lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard — Cyber Audit Pro</title>
-    <!-- Usa percorso assoluto riferito alla root pubblica servita da express -->
+    <!-- Tailwind CDN & Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Geist:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind Config & Custom CSS -->
+    <script src="/script/tailwind-setup.js"></script>
     <link rel="stylesheet" href="/style/style.css">
 </head>
-<body>
-    <div class="app-layout">
-        
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <a href="/private/dashboard.html" class="sidebar-brand">
-                    <span class="brand-icon">🛡️</span> Cyber Audit Pro
-                </a>
-            </div>
-            
-            <nav class="sidebar-nav">
-                <a href="/private/dashboard.html" class="menu-item active">
-                    <span class="icon">📊</span> Dashboard
-                </a>
-                <a href="#" class="menu-item" onclick="alert('In arrivo: area documenti.')">
-                    <span class="icon">📁</span> Documenti
-                </a>
-                <a href="#" class="menu-item" onclick="alert('In arrivo: impostazioni account.')">
-                    <span class="icon">⚙️</span> Impostazioni
-                </a>
-            </nav>
+<body class="font-body-md text-body-md antialiased min-h-screen flex bg-background text-on-surface">
 
-            <div class="sidebar-footer">
-                <div class="user-profile-sm">
-                    <div class="user-avatar" id="avatarInitials">US</div>
-                    <div class="user-info">
-                        <span class="name" id="userName">Caricamento...</span>
-                        <span class="role" id="userRoleBadge">...</span>
-                        <span style="font-size: 0.65rem; color: var(--gray-500); margin-top: 2px;" id="companyName">...</span>
+    <!-- Sidebar Component -->
+    <aside id="sidebarMenu" class="fixed left-0 top-0 h-full w-sidebar-width bg-surface-container-low border-r border-white/10 flex flex-col py-stack-lg z-40 hidden md:flex transition-transform -translate-x-full md:translate-x-0">
+        <!-- Header -->
+        <div class="px-margin-page mb-10 flex items-center gap-4">
+            <div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">shield</span>
+            </div>
+            <div>
+                <h1 class="font-headline-md text-headline-md font-black text-on-surface tracking-tight">Cyber Audit</h1>
+                <p class="font-label-sm text-label-sm text-on-surface-variant uppercase mt-1" id="companyName">...</p>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="flex-1 flex flex-col gap-2">
+            <a class="bg-primary/10 text-primary border-l-4 border-primary flex items-center gap-stack-md px-4 py-3 font-label-md text-label-md hover:bg-white/5 transition-all" href="/private/dashboard.html">
+                <span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+            <!-- Inactive -->
+            <a class="text-on-surface-variant flex items-center gap-stack-md px-4 py-3 font-label-md text-label-md hover:bg-white/5 hover:text-on-surface transition-all border-l-4 border-transparent" href="#" onclick="alert('In arrivo: area documenti.')">
+                <span class="material-symbols-outlined">folder</span>
+                Documenti
+            </a>
+            <a class="text-on-surface-variant flex items-center gap-stack-md px-4 py-3 font-label-md text-label-md hover:bg-white/5 hover:text-on-surface transition-all border-l-4 border-transparent" href="#" onclick="alert('In arrivo: impostazioni.')">
+                <span class="material-symbols-outlined">settings</span>
+                Impostazioni
+            </a>
+        </nav>
+
+        <!-- User Profile & Footer -->
+        <div class="px-4 mt-auto flex flex-col gap-6">
+            <div class="flex items-center gap-3 p-3 bg-surface-container-highest/30 rounded border border-white/5">
+                <div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface font-bold text-sm" id="avatarInitials">US</div>
+                <div class="flex flex-col">
+                    <span class="font-label-md text-label-md text-on-surface" id="userName">Caricamento...</span>
+                    <span class="font-label-sm text-label-sm text-primary" id="userRoleBadge">...</span>
+                </div>
+            </div>
+            <div class="pt-4 border-t border-white/10">
+                <button id="logoutBtn" class="w-full text-on-surface-variant flex items-center gap-stack-md px-4 py-2 font-label-md text-label-md hover:text-error transition-colors">
+                    <span class="material-symbols-outlined">logout</span>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 md:ml-sidebar-width min-h-screen flex flex-col">
+        <!-- TopAppBar / Mobile Header fallback -->
+        <header class="md:hidden flex justify-between items-center px-4 py-4 bg-surface-container-low border-b border-white/10 sticky top-0 z-50">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary-container">shield</span>
+                <span class="font-headline-md text-headline-md font-bold">Cyber Audit Pro</span>
+            </div>
+            <button class="text-on-surface" id="mobileMenuBtn">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </header>
+
+        <div class="max-w-7xl mx-auto w-full p-4 md:p-margin-page flex flex-col gap-8 flex-1">
+            
+            <!-- Greeting Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-4 md:mt-0">
+                <div>
+                    <h2 class="font-display-lg text-display-lg text-on-surface">Mission Control</h2>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant mt-2" id="welcomeMessage">Benvenuto nella tua area operativa.</p>
+                </div>
+                <div class="flex items-center gap-4 bg-surface-container-high rounded px-4 py-2 border border-white/10 shadow-sm">
+                    <div class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></div>
+                    <span class="font-mono-data text-mono-data text-on-surface-variant">System: Active & Secure</span>
+                </div>
+            </div>
+
+            <!-- Stats Row (Glassmorphism Cards) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter" id="statsGrid">
+                
+                <!-- Audit Totali -->
+                <div class="glass-card rounded-lg p-6 border-l-4 border-l-surface-variant flex flex-col gap-4">
+                    <div class="flex justify-between items-start">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Audit Totali</span>
+                        <span class="material-symbols-outlined text-on-surface-variant">list_alt</span>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <span class="font-headline-lg text-headline-lg text-on-surface" id="statTotalAudit">0</span>
                     </div>
                 </div>
-                <button id="logoutBtn" class="btn btn-secondary btn-sm btn-block">Esci 🚪</button>
-            </div>
-        </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <header class="main-header">
-                <div>
-                    <h1><span class="gradient-text">Dashboard Operativa</span></h1>
-                    <p id="welcomeMessage">Benvenuto nella tua area operativa.</p>
+                <!-- Completati -->
+                <div class="glass-card rounded-lg p-6 border-l-4 border-l-tertiary flex flex-col gap-4">
+                    <div class="flex justify-between items-start">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Completati</span>
+                        <span class="material-symbols-outlined text-tertiary">check_circle</span>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <span class="font-headline-lg text-headline-lg text-tertiary" id="statCompleted">0</span>
+                    </div>
                 </div>
-            </header>
 
-            <div class="stat-grid" id="statsGrid">
-                <div class="stat-card">
-                    <div class="stat-icon">📋</div>
-                    <div class="stat-label">AUDIT TOTALI</div>
-                    <div class="stat-value" id="statTotalAudit">0</div>
+                <!-- In Corso -->
+                <div class="glass-card rounded-lg p-6 border-l-4 border-l-primary-container flex flex-col gap-4">
+                    <div class="flex justify-between items-start">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">In Corso</span>
+                        <span class="material-symbols-outlined text-primary-container">pending</span>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <span class="font-headline-lg text-headline-lg text-primary-container" id="statInProgress">0</span>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon">✅</div>
-                    <div class="stat-label">COMPLETATI</div>
-                    <div class="stat-value" id="statCompleted" style="color: var(--success);">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">⏳</div>
-                    <div class="stat-label">IN CORSO</div>
-                    <div class="stat-value" id="statInProgress" style="color: var(--warning);">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">👥</div>
-                    <div class="stat-label">UTENTI STAFF</div>
-                    <div class="stat-value" id="statUsers">0</div>
+
+                <!-- Utenti Staff -->
+                <div class="glass-card rounded-lg p-6 border-l-4 border-l-secondary flex flex-col gap-4">
+                    <div class="flex justify-between items-start">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Utenti Staff</span>
+                        <span class="material-symbols-outlined text-secondary">group</span>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <span class="font-headline-lg text-headline-lg text-secondary" id="statUsers">0</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Audit Section -->
-            <div class="modern-card mb-2">
-                <div class="flex justify-between items-center mb-1">
-                    <h2>📋 Elenco Audit</h2>
-                    <button id="newAuditBtn" class="btn btn-primary">+ Nuovo Audit</button>
+            <div class="glass-card rounded-xl p-6 flex flex-col mt-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b border-white/10 pb-4 gap-4">
+                    <h3 class="font-headline-md text-headline-md text-on-surface">Recent Audit Logs</h3>
+                    <button id="newAuditBtn" class="btn-primary px-4 py-2 rounded font-label-md text-label-md inline-flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">add</span> Nuovo Audit
+                    </button>
                 </div>
-                <div class="table-container">
-                    <table id="auditTable">
+                
+                <div class="overflow-x-auto">
+                    <table id="auditTable" class="w-full text-left border-collapse">
                         <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Data</th>
-                                <th>Creato da</th>
-                                <th>Stato</th>
-                                <th>Azioni</th>
+                            <tr class="border-b border-white/5">
+                                <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">ID / Data</th>
+                                <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Creato da</th>
+                                <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Stato / Punteggio</th>
+                                <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">Azioni</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!-- populated via JS -->
+                        <tbody class="divide-y divide-white/5">
+                            <!-- Populated via JS -->
                         </tbody>
                     </table>
-                    <div class="empty-state" id="auditEmptyState" style="display: none;">
-                        <span class="empty-icon">📋</span>
-                        <p>Nessun audit ancora. Clicca "Nuovo Audit" per iniziare la tua prima valutazione.</p>
+                </div>
+
+                <div class="hidden text-center py-10" id="auditEmptyState">
+                    <div class="w-16 h-16 rounded-full bg-surface-variant/30 flex items-center justify-center text-on-surface-variant mx-auto mb-4">
+                        <span class="material-symbols-outlined text-3xl">fact_check</span>
                     </div>
+                    <h4 class="font-label-md text-label-md text-on-surface mb-1">Nessun audit presente</h4>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">Clicca "Nuovo Audit" per iniziare la tua prima valutazione.</p>
                 </div>
             </div>
 
-            <!-- Users Section (Manager/Admin only) -->
-            <div class="modern-card" id="usersSection">
-                <h2>👥 Gestione Utenti</h2>
-                <div class="table-container mb-1">
-                    <table id="usersTable">
+            <!-- Users Section (Manager only) -->
+            <div id="usersSection" class="glass-card rounded-xl p-6 flex flex-col mt-4 hidden">
+                <h3 class="font-headline-md text-headline-md text-on-surface mb-6 border-b border-white/10 pb-4">Gestione Utenti (Staff)</h3>
+                
+                <div class="overflow-x-auto mb-8">
+                    <table id="usersTable" class="w-full text-left border-collapse">
                         <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>Ruolo</th>
+                            <tr class="border-b border-white/5">
+                                <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Nome Completo</th>
+                                <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Email</th>
+                                <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Ruolo</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!-- populated via JS -->
+                        <tbody class="divide-y divide-white/5">
+                            <!-- Populated via JS -->
                         </tbody>
                     </table>
                 </div>
 
-                <hr class="section-divider">
-
-                <h3>Aggiungi Utente Staff</h3>
-                <div id="userAlert" class="alert"></div>
-                <form id="createUserForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Nome Completo</label>
-                            <input type="text" id="newUserName" class="form-control" placeholder="Mario Rossi" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="newUserEmail" class="form-control" placeholder="mario.rossi@azienda.com" required>
-                        </div>
+                <h4 class="font-headline-sm text-on-surface mb-4">Aggiungi nuovo operatore</h4>
+                <div id="userAlert" class="hidden p-3 mb-4 rounded font-body-sm text-body-sm bg-error-container/20 border border-error-container/50 text-error-container text-center"></div>
+                
+                <form id="createUserForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-container-highest/30 p-4 rounded border border-white/5">
+                    <div class="flex flex-col gap-1.5">
+                        <label class="font-label-sm text-label-sm text-on-surface-variant">Nome Completo</label>
+                        <input type="text" id="newUserName" class="w-full bg-surface-container border border-white/10 rounded px-3 py-2 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="Mario Rossi" required>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Password Temporanea</label>
-                            <input type="password" id="newUserPassword" class="form-control" placeholder="Min. 8 caratteri" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Ruolo</label>
-                            <select id="newUserRole" class="form-control" required>
-                                <option value="User">User (Operativo)</option>
-                                <option value="Manager">Manager</option>
-                            </select>
-                        </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label class="font-label-sm text-label-sm text-on-surface-variant">Email</label>
+                        <input type="email" id="newUserEmail" class="w-full bg-surface-container border border-white/10 rounded px-3 py-2 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="mario@azienda.com" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Aggiungi Utente</button>
+                    <div class="flex flex-col gap-1.5">
+                        <label class="font-label-sm text-label-sm text-on-surface-variant">Password Temporanea</label>
+                        <input type="password" id="newUserPassword" class="w-full bg-surface-container border border-white/10 rounded px-3 py-2 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="Min. 8 caratteri" required minlength="8">
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label class="font-label-sm text-label-sm text-on-surface-variant">Ruolo Accesso</label>
+                        <select id="newUserRole" class="w-full bg-surface-container border border-white/10 rounded px-3 py-2 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" required>
+                            <option value="User">User (Operativo)</option>
+                            <option value="Manager">Manager (Amministratore)</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2 mt-2">
+                        <button type="submit" class="btn-primary w-full md:w-auto px-6 py-2 rounded font-label-md text-label-md flex justify-center items-center gap-2">
+                            Aggiungi Utente <span class="material-symbols-outlined text-sm">person_add</span>
+                        </button>
+                    </div>
                 </form>
             </div>
-            
-            <footer class="footer mt-2" style="text-align: left; padding: 1rem 0; border: none;">
-                <p>© 2026 Cyber Audit Pro</p>
-            </footer>
-        </main>
-    </div>
+
+        </div>
+
+        <footer class="w-full py-6 px-4 md:px-margin-page mt-auto border-t border-white/5 bg-surface-container-lowest">
+            <span class="font-body-sm text-body-sm text-on-surface-variant">© 2026 Cyber Audit Pro. Tutti i diritti riservati.</span>
+        </footer>
+    </main>
 
     <script src="/private/script/private_script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             initDashboard();
-            // Aggiungo logica per le iniziali avatar dinamicamente dopo il fetch
+            
+            // Logica per le iniziali avatar dinamicamente dopo il fetch
             const observer = new MutationObserver(() => {
                 const nameStr = document.getElementById('userName').textContent;
                 if(nameStr && nameStr !== 'Caricamento...') {
@@ -173,6 +243,16 @@
                 }
             });
             observer.observe(document.getElementById('userName'), { childList: true });
+
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebarMenu = document.getElementById('sidebarMenu');
+            if (mobileMenuBtn && sidebarMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    sidebarMenu.classList.toggle('hidden');
+                    sidebarMenu.classList.toggle('-translate-x-full');
+                });
+            }
         });
     </script>
 </body>
