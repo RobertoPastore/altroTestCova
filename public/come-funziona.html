@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Come Funziona — Cyber Audit Pro</title>
+    <link rel="stylesheet" href="/style/style.css">
+    <style>
+        .landing-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--radius-xl);
+            padding: 1rem 1.5rem;
+            margin-top: 1rem;
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .hero-simple {
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+
+        .hero-simple h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+        .hero-simple p { font-size: 1.1rem; color: var(--text-secondary); max-width: 650px; margin: 0 auto; }
+
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 4rem auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 40px;
+            height: 100%; width: 4px;
+            background: var(--gray-200);
+            border-radius: 4px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 100px;
+        }
+
+        .timeline-item:last-child { margin-bottom: 0; }
+
+        .timeline-badge {
+            position: absolute;
+            left: 16px; top: 0;
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            background: var(--bg-body);
+            border: 4px solid var(--primary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; font-weight: 800; color: var(--primary);
+            box-shadow: 0 0 0 4px var(--bg-body);
+            z-index: 10;
+        }
+
+        .timeline-content {
+            background: white;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-card);
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 20px; left: -10px;
+            border-width: 10px 10px 10px 0;
+            border-style: solid;
+            border-color: transparent var(--border-subtle) transparent transparent;
+        }
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 21px; left: -8px;
+            border-width: 9px 9px 9px 0;
+            border-style: solid;
+            border-color: transparent white transparent transparent;
+        }
+
+        .timeline-content h3 { font-size: 1.4rem; color: var(--gray-900); margin-bottom: 0.5rem; }
+        .timeline-content p { color: var(--text-secondary); margin-bottom: 1.5rem; }
+        
+        .mockup-box {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before { left: 20px; }
+            .timeline-item { padding-left: 60px; }
+            .timeline-badge { left: -4px; width: 44px; height: 44px; font-size: 1.2rem; }
+            .timeline-content::before, .timeline-content::after { display: none; }
+            .timeline-content { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body class="public-page">
+    <div class="container">
+        
+        <!-- Navbar -->
+        <nav class="public-nav landing-nav">
+            <a href="/" class="nav-brand">
+                <span class="brand-icon">🛡️</span> Cyber Audit Pro
+            </a>
+            <div class="nav-links">
+                <a href="/index.html" style="font-weight: 500;">Home</a>
+                <a href="/login.html" style="font-weight: 500;">Accedi</a>
+                <a href="/register.html" class="btn btn-primary">Inizia Gratis</a>
+            </div>
+        </nav>
+
+        <!-- Header -->
+        <section class="hero-simple">
+            <span class="badge badge-orange" style="margin-bottom: 1rem;">Guida Ufficiale</span>
+            <h1>Come funziona la <span class="gradient-text">Piattaforma</span></h1>
+            <p>Scopri l'intero processo: dalla creazione del tuo account aziendale alla generazione automatizzata del report di conformità e vulnerabilità.</p>
+        </section>
+
+        <!-- Timeline -->
+        <div class="timeline">
+            
+            <!-- STEP 1 -->
+            <div class="timeline-item">
+                <div class="timeline-badge">1</div>
+                <div class="timeline-content">
+                    <h3>Registrazione Multi-Tenant (Isolata)</h3>
+                    <p>La piattaforma è pensata per le aziende (approccio B2B). Quando ti registri, viene creato un ambiente sicuro (Tenant) dedicato solo alla tua partita IVA, completamente separato dagli altri. In questo momento tu diventi il "Manager" principale del tuo spazio.</p>
+                    
+                    <div class="mockup-box" style="border-left: 4px solid var(--orange-500);">
+                        <strong>Azione Utente:</strong><br>
+                        Compila il modulo di registrazione inserendo Nome Azienda, Partita IVA, e i tuoi dati personali (Email, Password).
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="timeline-item">
+                <div class="timeline-badge">2</div>
+                <div class="timeline-content">
+                    <h3>Dashboard e Gestione dello Staff</h3>
+                    <p>Una volta fatto l'accesso, atterrerai in una plancia di comando laterale (Sidebar) pulita e moderna. Se sei un Manager, potrai creare utenze per i tuoi dipendenti direttamente dal pannello "Gestione Utenti".</p>
+                    
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: var(--text-secondary); line-height: 1.7;">
+                        <li><strong>Ruolo Manager:</strong> Può aggiungere o rimuovere operatori e vedere le statistiche globali.</li>
+                        <li><strong>Ruolo User (Operativo):</strong> Può unicamente eseguire le valutazioni (Audit) senza avere permessi amministrativi.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="timeline-item">
+                <div class="timeline-badge">3</div>
+                <div class="timeline-content">
+                    <h3>Esecuzione dell'Audit (Gap Analysis)</h3>
+                    <p>Dalla dashboard, clicca su "Nuovo Audit". Ti verrà presentata una Checklist tecnica divisa per sezioni: <em>Cyber Security</em> e <em>GDPR</em>. L'operatore dovrà rispondere onestamente valutando lo stato delle infrastrutture aziendali.</p>
+                    
+                    <div class="mockup-box" style="display: flex; gap: 1rem; align-items: center;">
+                        <span style="font-size: 2rem;">📝</span>
+                        <div>
+                            <strong>Esempio di domanda:</strong><br>
+                            "Le password aziendali seguono policy di complessità ed hanno una rotazione mensile?"<br>
+                            <em>Risposte ammesse: [Sì, presente] - [Parzialmente] - [No, assente] - [N/A]</em>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="timeline-item">
+                <div class="timeline-badge">4</div>
+                <div class="timeline-content">
+                    <h3>Generazione del Report Automatico</h3>
+                    <p>Appena terminata la checklist, il nostro motore di valutazione calcola un punteggio di Cyber Security (da 0 a 100). Le risposte negative abbattono lo score in base a un "peso di rischio" segreto.</p>
+                    <p>Subito dopo viene sbloccato il <strong>Report di Valutazione Rischi</strong>, un documento formale che elenca:</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div style="background: #fee2e2; border: 1px solid #fca5a5; padding: 1rem; border-radius: var(--radius-md);">
+                            <h4 style="color: #991b1b; margin-bottom: 0.5rem; font-size: 0.9rem;">🚨 Vulnerabilità Rilevate</h4>
+                            <span style="font-size: 0.8rem; color: #7f1d1d;">Elenco delle falle tecniche esatte. Esempio: "Assente politica di backup."</span>
+                        </div>
+                        <div style="background: var(--orange-50); border: 1px solid var(--orange-200); padding: 1rem; border-radius: var(--radius-md);">
+                            <h4 style="color: var(--orange-700); margin-bottom: 0.5rem; font-size: 0.9rem;">⚠️ Rischi GDPR</h4>
+                            <span style="font-size: 0.8rem; color: var(--orange-700);">Violazioni normative dedotte dalle risposte. Esempio: "Mancata cifratura DB."</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="timeline-item">
+                <div class="timeline-badge">5</div>
+                <div class="timeline-content" style="border-color: var(--primary); box-shadow: 0 10px 30px rgba(249,115,22,0.1);">
+                    <h3>Pronti per Iniziare?</h3>
+                    <p>Non serve installare nulla. Tutto è in Cloud, protetto e isolato. Inizia mettendo al sicuro i dati della tua azienda oggi stesso.</p>
+                    <a href="/register.html" class="btn btn-primary" style="margin-top: 0.5rem;">Crea il tuo Account Gratuito →</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <footer class="footer mt-2" style="border-top: 1px solid var(--border-subtle); background: white;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 2rem 0;">
+            <div style="font-weight: 700; color: var(--gray-900);">🛡️ Cyber Audit Pro</div>
+            <p style="margin: 0; color: var(--text-tertiary);">© 2026 Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+</body>
+</html>
