@@ -1,87 +1,139 @@
 <!DOCTYPE html>
-<html lang="it">
+<html class="dark" lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report Audit — Cyber Audit Pro</title>
+    <!-- Tailwind CDN & Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Geist:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind Config & Custom CSS -->
+    <script src="/script/tailwind-setup.js"></script>
     <link rel="stylesheet" href="/style/style.css">
 </head>
-<body>
-    <div class="app-layout">
-        
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <a href="/private/dashboard.html" class="sidebar-brand">
-                    <span class="brand-icon">🛡️</span> Cyber Audit Pro
-                </a>
+<body class="bg-surface-container-lowest text-on-surface font-body-md antialiased overflow-x-hidden selection:bg-primary-container selection:text-white flex min-h-screen">
+
+    <!-- Shared Component: SideNavBar -->
+    <aside class="hidden md:flex fixed left-0 top-0 h-full w-sidebar-width bg-surface-container-low border-r border-white/10 flex-col py-stack-lg z-50">
+        <!-- Header -->
+        <div class="px-6 mb-stack-lg flex items-center gap-4">
+            <div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">shield</span>
             </div>
-            
-            <nav class="sidebar-nav">
-                <a href="/private/dashboard.html" class="menu-item">
-                    <span class="icon">←</span> Torna alla Dashboard
-                </a>
-            </nav>
-
-            <div class="sidebar-footer">
-                <button onclick="window.print()" class="btn btn-primary btn-block">🖨️ Stampa Report</button>
+            <div>
+                <h1 class="font-headline-md text-[20px] font-black text-on-surface leading-tight tracking-tight">Cyber Audit</h1>
             </div>
-        </aside>
+        </div>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <div id="reportLoader" class="text-center" style="padding: 4rem 0;">
-                <span class="loader" style="display: inline-block;"></span>
-                <p class="mt-1 text-muted">Caricamento report...</p>
-            </div>
+        <!-- Navigation -->
+        <nav class="flex-1 px-2 flex flex-col gap-1">
+            <a class="text-on-surface-variant flex items-center gap-stack-md px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all rounded" href="/private/dashboard.html">
+                <span class="material-symbols-outlined text-xl">arrow_back</span>
+                <span class="font-label-md text-label-md">Torna alla Dashboard</span>
+            </a>
+            <!-- ACTIVE TAB: Reports -->
+            <a class="bg-primary/10 text-primary border-l-[3px] border-primary flex items-center gap-stack-md px-4 py-3 translate-x-1 duration-150 rounded-r" href="#">
+                <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">assessment</span>
+                <span class="font-label-md text-label-md">Report Corrente</span>
+            </a>
+        </nav>
 
-            <div id="reportContent" style="display: none; max-width: 900px; margin: 0 auto;">
-                <header class="main-header" style="justify-content: center; text-align: center; margin-bottom: 3rem;">
-                    <div>
-                        <h1><span class="gradient-text">Report Valutazione Rischi</span></h1>
-                        <p class="text-muted" style="font-size: 1.1rem; font-weight: 500;">Generato il <span id="reportDate" style="color: var(--text-primary);"></span> — Audit #<span id="reportAuditId" style="color: var(--text-primary);"></span></p>
-                    </div>
-                </header>
+        <div class="px-4 mt-auto flex flex-col gap-4">
+            <button onclick="window.print()" class="w-full bg-surface-variant border border-white/10 text-on-surface font-label-md text-label-md py-3 px-4 flex items-center justify-center gap-2 rounded hover:border-primary-container hover:text-primary-container transition-colors shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]">
+                <span class="material-symbols-outlined text-lg">print</span>
+                Stampa PDF
+            </button>
+        </div>
+    </aside>
 
-                <div class="stat-grid" style="grid-template-columns: 1fr;">
-                    <div class="modern-card text-center card-highlight">
-                        <h3 class="text-secondary" style="margin-bottom: 0.5rem; font-weight: 700; letter-spacing: 0.05em; font-size: 0.9rem;">PUNTEGGIO CYBER SECURITY</h3>
-                        <div id="scoreCircle" class="score-circle">
-                            <span id="scoreValue">100</span>
-                            <span class="score-label">su 100</span>
-                        </div>
-                        <p id="scoreMessage" style="font-weight: 600; margin-top: 0.5rem; font-size: 1.1rem;"></p>
-                    </div>
+    <!-- Main Content Area -->
+    <main class="md:ml-sidebar-width flex-1 min-h-screen p-4 md:p-margin-page max-w-container-max relative flex flex-col">
+        <!-- Subtle background glow -->
+        <div class="absolute top-0 right-0 w-1/2 h-[500px] bg-primary-container/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div id="reportLoader" class="text-center flex-1 flex flex-col items-center justify-center" style="padding: 4rem 0;">
+            <span class="material-symbols-outlined text-primary animate-spin text-5xl">sync</span>
+            <p class="mt-4 text-on-surface-variant font-body-lg text-body-lg">Caricamento report in corso...</p>
+        </div>
+
+        <div id="reportContent" class="hidden flex-col gap-8 w-full pb-10">
+            <!-- Page Header -->
+            <header class="flex flex-col md:flex-row md:items-end justify-between gap-4 relative z-10 border-b border-white/10 pb-6">
+                <div>
+                    <p class="font-mono-data text-mono-data text-primary mb-2 flex items-center gap-2 uppercase tracking-widest">
+                        <span class="material-symbols-outlined text-base">verified_user</span>
+                        AUDIT-ID: <span id="reportAuditId">...</span>
+                    </p>
+                    <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold">Report Valutazione Rischi</h1>
+                    <p class="text-on-surface-variant font-body-sm text-body-sm mt-2">Generato il <span id="reportDate" class="text-on-surface font-bold">...</span></p>
                 </div>
+                <button onclick="window.print()" class="md:hidden bg-primary-container text-background font-label-md text-label-md px-6 py-3 rounded hover:bg-primary transition-all flex items-center gap-2 shadow-[2px_2px_0px_#a33e00] hover:shadow-[4px_4px_0px_#a33e00] hover:-translate-y-[2px] active:translate-y-0 active:shadow-none font-bold group w-max">
+                    <span class="material-symbols-outlined text-xl group-hover:animate-bounce">download</span>
+                    Scarica PDF
+                </button>
+            </header>
 
-                <div class="modern-card mb-2">
-                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-                        <span style="font-size: 1.5rem;">🚨</span>
-                        <h3 style="margin: 0; font-size: 1.2rem;">Vulnerabilità Rilevate</h3>
-                    </div>
-                    <p class="text-sm text-secondary mb-1">Carenze identificate durante la valutazione che richiedono mitigazione.</p>
-                    <div id="vulnList">
-                        <!-- populated via JS -->
-                    </div>
-                </div>
-
-                <div class="modern-card mb-2">
-                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-                        <span style="font-size: 1.5rem;">⚠️</span>
-                        <h3 style="margin: 0; font-size: 1.2rem;">Rischi Sanzionatori GDPR</h3>
-                    </div>
-                    <p class="text-sm text-secondary mb-1">Potenziali violazioni normative identificate e punti di non conformità.</p>
-                    <div id="gdprList">
-                        <!-- populated via JS -->
-                    </div>
+            <!-- Executive Summary (Score) -->
+            <section class="bg-surface/60 backdrop-blur-[12px] border-t border-l border-white/10 rounded p-6 md:p-8 relative overflow-hidden group hover:bg-surface/80 transition-colors">
+                <!-- Level 2 Glass card accent -->
+                <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-secondary-container"></div>
+                <div class="flex items-start gap-4 mb-6">
+                    <span class="material-symbols-outlined text-secondary-container text-3xl">insights</span>
+                    <h2 class="font-headline-md text-headline-md text-on-surface">Punteggio Cyber Security</h2>
                 </div>
                 
-                <footer class="footer mt-2" style="text-align: center; padding: 2rem 0; border: none;">
-                    <p class="text-sm text-muted">© 2026 Cyber Audit Pro — Documento generato automaticamente. Classificazione: CONFIDENZIALE.</p>
-                </footer>
-            </div>
-        </main>
-    </div>
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <!-- Circle Score Container -->
+                    <div id="scoreCircle" class="w-32 h-32 rounded-full border-4 flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                        <span id="scoreValue" class="text-4xl font-bold font-mono-data tracking-tight text-on-surface">100</span>
+                        <span class="text-xs uppercase font-bold text-on-surface-variant mt-1">su 100</span>
+                    </div>
+                    
+                    <p id="scoreMessage" class="font-body-lg text-body-lg text-inverse-surface max-w-2xl leading-relaxed">
+                        ...
+                    </p>
+                </div>
+            </section>
+
+            <!-- Potential Sanctions (GDPR Risks) -->
+            <section>
+                <h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                    Rischi Sanzionatori GDPR
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter" id="gdprList">
+                    <!-- populated via JS -->
+                </div>
+            </section>
+
+            <!-- Detailed Vulnerability List -->
+            <section>
+                <h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <span class="w-2 h-2 bg-error rounded-full"></span>
+                    Vulnerabilità Rilevate
+                </h3>
+                <div class="bg-surface/60 backdrop-blur-[12px] border-t border-l border-white/10 rounded overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-surface-container/50 border-b border-white/10">
+                                <th class="p-4 font-label-sm text-label-sm text-on-surface-variant uppercase w-16">#</th>
+                                <th class="p-4 font-label-sm text-label-sm text-on-surface-variant uppercase">Descrizione Vulnerabilità</th>
+                                <th class="p-4 font-label-sm text-label-sm text-on-surface-variant uppercase">Stato</th>
+                            </tr>
+                        </thead>
+                        <tbody class="font-body-sm text-on-surface divide-y divide-white/5" id="vulnList">
+                            <!-- populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <footer class="mt-8 text-center pt-8 border-t border-white/5">
+                <p class="font-body-sm text-body-sm text-on-surface-variant">© 2026 Cyber Audit Pro — Documento generato automaticamente. Classificazione: CONFIDENZIALE.</p>
+            </footer>
+        </div>
+    </main>
 
     <script src="/private/script/private_script.js"></script>
     <script>document.addEventListener('DOMContentLoaded', () => loadReport());</script>

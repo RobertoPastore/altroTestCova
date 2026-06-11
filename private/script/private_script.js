@@ -178,7 +178,13 @@ async function initAuditInterface() {
             container.innerHTML = '';
 
             if (checklistQuestions.length === 0) {
-                container.innerHTML = '<div class="empty-state"><span class="empty-icon">⚠️</span><p>La checklist è vuota.</p></div>';
+                container.innerHTML = `
+                <div class="text-center py-10">
+                    <div class="w-16 h-16 rounded-full bg-surface-variant/30 flex items-center justify-center text-on-surface-variant mx-auto mb-4">
+                        <span class="material-symbols-outlined text-3xl">warning</span>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">La checklist è vuota.</p>
+                </div>`;
                 return;
             }
 
@@ -186,25 +192,47 @@ async function initAuditInterface() {
             checklistQuestions.forEach((q, index) => {
                 if (q.sezione !== currentSection) {
                     currentSection = q.sezione;
-                    const icon = currentSection === 'Cyber Security' ? '🔒' : '📜';
-                    container.innerHTML += `<div class="section-header"><span class="section-icon">${icon}</span> ${currentSection}</div>`;
+                    const icon = currentSection === 'Cyber Security' ? 'security' : 'gavel';
+                    container.innerHTML += `
+                    <div class="mt-8 mb-4">
+                        <h3 class="font-headline-md text-headline-md text-inverse-surface flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">${icon}</span> ${currentSection}
+                        </h3>
+                    </div>`;
                 }
 
                 container.innerHTML += `
-                    <div class="checklist-question">
-                        <p class="q-text"><span class="q-number">${index + 1}.</span>${q.domanda}</p>
-                        <div class="radio-group">
-                            <label><input type="radio" name="q_${q.id}" value="yes" required> Sì, presente</label>
-                            <label><input type="radio" name="q_${q.id}" value="partial"> Parzialmente</label>
-                            <label><input type="radio" name="q_${q.id}" value="no"> No, assente</label>
-                            <label><input type="radio" name="q_${q.id}" value="na"> N/A</label>
+                    <div class="glass-panel p-6 rounded-lg flex flex-col md:flex-row md:items-start justify-between gap-6 relative bg-surface-container-high/40 border border-white/5">
+                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-primary-container"></div>
+                        <div class="flex-1 pl-2">
+                            <h4 class="font-body-lg text-body-lg text-on-surface mb-1">
+                                <span class="text-primary font-bold mr-2">${index + 1}.</span>${q.domanda}
+                            </h4>
+                        </div>
+                        <div class="flex flex-wrap gap-2 md:gap-3 custom-radio shrink-0">
+                            <div>
+                                <input id="q${q.id}-yes" name="q_${q.id}" type="radio" value="yes" required/>
+                                <label class="radio-yes" for="q${q.id}-yes">Sì</label>
+                            </div>
+                            <div>
+                                <input id="q${q.id}-partial" name="q_${q.id}" type="radio" value="partial"/>
+                                <label class="radio-partial" for="q${q.id}-partial">Parziale</label>
+                            </div>
+                            <div>
+                                <input id="q${q.id}-no" name="q_${q.id}" type="radio" value="no"/>
+                                <label class="radio-no" for="q${q.id}-no">No</label>
+                            </div>
+                            <div>
+                                <input id="q${q.id}-na" name="q_${q.id}" type="radio" value="na"/>
+                                <label class="radio-na" for="q${q.id}-na">N/A</label>
+                            </div>
                         </div>
                     </div>`;
             });
         }
     } catch (e) {
         document.getElementById('checklistContainer').innerHTML =
-            '<div class="empty-state"><span class="empty-icon">❌</span><p>Errore nel caricamento della checklist.</p></div>';
+            '<div class="text-center py-10"><div class="w-16 h-16 rounded-full bg-error-container/30 flex items-center justify-center text-error mx-auto mb-4"><span class="material-symbols-outlined text-3xl">error</span></div><p class="font-body-sm text-body-sm text-error">Errore nel caricamento della checklist.</p></div>';
     }
 
     // Concludi Audit
@@ -285,8 +313,9 @@ async function loadReport() {
 
         const result = await res.json();
         if (result.success) {
-            document.getElementById('reportLoader').style.display = 'none';
-            document.getElementById('reportContent').style.display = 'block';
+            document.getElementById('reportLoader').classList.add('hidden');
+            document.getElementById('reportContent').classList.remove('hidden');
+            document.getElementById('reportContent').classList.add('flex');
 
             const report = result.data;
             document.getElementById('reportAuditId').textContent = report.audit_id;
@@ -297,31 +326,73 @@ async function loadReport() {
             const msg = document.getElementById('scoreMessage');
             scoreValue.textContent = report.punteggio_cyber_security;
 
-            circle.className = 'score-circle';
+            circle.className = 'w-32 h-32 rounded-full border-4 flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(0,0,0,0.5)]';
+            msg.className = 'font-body-lg text-body-lg max-w-2xl leading-relaxed';
+            
             if (report.punteggio_cyber_security >= 80) {
-                circle.classList.add('score-high');
-                msg.textContent = 'Livello di sicurezza ottimale.';
-                msg.style.color = 'var(--success)';
+                circle.classList.add('border-tertiary', 'shadow-tertiary/20');
+                scoreValue.classList.add('text-tertiary');
+                msg.textContent = 'Livello di sicurezza ottimale. L\'infrastruttura è solida e allineata alle best practice.';
+                msg.classList.add('text-tertiary');
             } else if (report.punteggio_cyber_security >= 50) {
-                circle.classList.add('score-mid');
-                msg.textContent = 'Livello medio. Necessari miglioramenti.';
-                msg.style.color = 'var(--warning)';
+                circle.classList.add('border-primary-container', 'shadow-primary-container/20');
+                scoreValue.classList.add('text-primary-container');
+                msg.textContent = 'Livello medio. Necessari miglioramenti e interventi di mitigazione sui punti evidenziati.';
+                msg.classList.add('text-primary-container');
             } else {
-                circle.classList.add('score-low');
-                msg.textContent = 'Criticità elevata! Intervento immediato richiesto.';
-                msg.style.color = 'var(--danger)';
+                circle.classList.add('border-error', 'shadow-error/20');
+                scoreValue.classList.add('text-error');
+                msg.textContent = 'Criticità elevata! Intervento immediato richiesto per proteggere i sistemi.';
+                msg.classList.add('text-error');
             }
 
             const vulnList = document.getElementById('vulnList');
             const vulnArr = JSON.parse(report.vulnerabilita_rilevate);
-            vulnArr.forEach(v => {
-                vulnList.innerHTML += `<div class="vuln-item">${v}</div>`;
+            vulnList.innerHTML = '';
+            vulnArr.forEach((v, idx) => {
+                const isNone = v.includes('Nessuna');
+                const badge = isNone 
+                    ? `<div class="flex items-center gap-2 bg-tertiary/20 px-2 py-1 rounded w-max border border-tertiary/30">
+                           <span class="w-2 h-2 bg-tertiary rounded-full"></span>
+                           <span class="font-mono-data text-[12px] text-tertiary">OK</span>
+                       </div>`
+                    : `<div class="flex items-center gap-2 bg-error-container/20 px-2 py-1 rounded w-max border border-error-container/30">
+                           <span class="w-2 h-2 bg-error rounded-full shadow-[0_0_8px_rgba(255,180,171,0.8)]"></span>
+                           <span class="font-mono-data text-[12px] text-error">RILEVATA</span>
+                       </div>`;
+                       
+                vulnList.innerHTML += `
+                <tr class="hover:bg-white/5 transition-colors group">
+                    <td class="p-4 font-mono-data text-mono-data text-inverse-surface">${idx + 1}</td>
+                    <td class="p-4 max-w-md text-on-surface-variant group-hover:text-on-surface transition-colors">${v}</td>
+                    <td class="p-4">${badge}</td>
+                </tr>`;
             });
 
             const gdprList = document.getElementById('gdprList');
             const gdprArr = JSON.parse(report.rischi_sanzionatori_gdpr);
+            gdprList.innerHTML = '';
             gdprArr.forEach(g => {
-                gdprList.innerHTML += `<div class="gdpr-item">${g}</div>`;
+                const isCompliance = g.includes('Compliance GDPR rispettata');
+                const badgeColor = isCompliance ? 'text-tertiary' : 'text-primary';
+                const borderColor = isCompliance ? 'border-tertiary/20' : 'border-primary/20';
+                const leftLineColor = isCompliance ? 'bg-tertiary' : 'bg-primary';
+                const icon = isCompliance ? 'check_circle' : 'warning';
+                
+                gdprList.innerHTML += `
+                <div class="bg-[#1e130d]/80 backdrop-blur-[12px] border-t border-l ${borderColor} rounded p-6 relative overflow-hidden">
+                    <div class="absolute left-0 top-0 bottom-0 w-[3px] ${leftLineColor}"></div>
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-headline-md text-[18px] ${badgeColor}">${isCompliance ? 'Conformità' : 'Rischio Identificato'}</h4>
+                        <span class="material-symbols-outlined ${badgeColor}">${icon}</span>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant mb-4">${g}</p>
+                    ${isCompliance ? '' : `
+                    <div class="flex items-center gap-2 font-mono-data text-[12px] text-error-container bg-error/10 px-3 py-1 rounded inline-flex">
+                        <span class="material-symbols-outlined" style="font-size: 14px;">gavel</span>
+                        Violazione Potenziale
+                    </div>`}
+                </div>`;
             });
         }
     } catch (e) {
