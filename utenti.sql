@@ -15,13 +15,13 @@ CREATE TABLE ruoli (
 -- Tabella Utenti
 CREATE TABLE utenti (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    azienda_id INT NULL, -- NULL per l'Admin di sistema globale
+    tenant_id INT NOT NULL,
     ruolo_id INT NOT NULL,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     creato_il DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (azienda_id) REFERENCES aziende(id) ON DELETE CASCADE,
+    FOREIGN KEY (tenant_id) REFERENCES aziende(id) ON DELETE CASCADE,
     FOREIGN KEY (ruolo_id) REFERENCES ruoli(id)
 );
 
@@ -36,12 +36,12 @@ CREATE TABLE checklist (
 -- Tabella Audit (Singola valutazione)
 CREATE TABLE audit (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    azienda_id INT NOT NULL,
+    tenant_id INT NOT NULL,
     creato_da INT NOT NULL,
     data_inizio DATETIME DEFAULT CURRENT_TIMESTAMP,
     stato VARCHAR(50) DEFAULT 'In corso', -- 'In corso', 'Completato'
-    FOREIGN KEY (azienda_id) REFERENCES aziende(id) ON DELETE CASCADE,
-    FOREIGN KEY (creato_da) REFERENCES utenti(id)
+    FOREIGN KEY (tenant_id) REFERENCES aziende(id) ON DELETE CASCADE,
+    FOREIGN KEY (creato_da) REFERENCES utenti(id) ON DELETE CASCADE
 );
 
 -- Tabella Report Finale

@@ -27,7 +27,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       # Copia lo script di inizializzazione nel container per creare in automatico le tabelle
-      - ./database.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./utenti.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
       interval: 10s

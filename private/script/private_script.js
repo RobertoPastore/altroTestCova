@@ -17,7 +17,7 @@ function showAlert(elementId, message, isSuccess = true) {
 const logoutBtn = document.getElementById('logoutBtn');
 if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
-        await fetch('/api/auth/logout', { method: 'POST' });
+        await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
         window.location.href = '/login.html';
     });
 }
@@ -26,7 +26,7 @@ if (logoutBtn) {
 async function initDashboard() {
     try {
         // Fetch profilo utente
-        const profileRes = await fetch('/api/auth/me');
+        const profileRes = await fetch('/api/auth/me', { credentials: 'include' });
         if (!profileRes.ok) { window.location.href = '/login.html'; return; }
         const profile = await profileRes.json();
         if (profile.success) {
@@ -39,7 +39,7 @@ async function initDashboard() {
         }
 
         // Fetch audit
-        const auditRes = await fetch('/api/audit');
+        const auditRes = await fetch('/api/audit', { credentials: 'include' });
         const auditData = await auditRes.json();
         const tbody = document.querySelector('#auditTable tbody');
         tbody.innerHTML = '';
@@ -74,7 +74,7 @@ async function initDashboard() {
         }
 
         // Fetch utenti (solo Manager/Admin)
-        const userRes = await fetch('/api/users');
+        const userRes = await fetch('/api/users', { credentials: 'include' });
         if (userRes.ok) {
             const userData = await userRes.json();
             if (userData.success) {
@@ -101,7 +101,7 @@ async function initDashboard() {
     // Nuovo Audit
     document.getElementById('newAuditBtn').addEventListener('click', async () => {
         try {
-            const res = await fetch('/api/audit', { method: 'POST' });
+            const res = await fetch('/api/audit', { method: 'POST', credentials: 'include' });
             const result = await res.json();
             if (result.success) {
                 window.location.href = `/private/audit.html?id=${result.audit_id}`;
@@ -125,6 +125,7 @@ async function initDashboard() {
             try {
                 const res = await fetch('/api/users', {
                     method: 'POST',
+                    credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
@@ -151,7 +152,7 @@ async function initAuditInterface() {
     document.getElementById('currentAuditId').textContent = auditId;
 
     try {
-        const res = await fetch('/api/audit/checklist');
+        const res = await fetch('/api/audit/checklist', { credentials: 'include' });
         if (!res.ok) { window.location.href = '/login.html'; return; }
         const result = await res.json();
 
@@ -222,6 +223,7 @@ async function initAuditInterface() {
         try {
             await fetch(`/api/audit/${auditId}`, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ stato: 'Completato' })
             });
@@ -234,6 +236,7 @@ async function initAuditInterface() {
 
             const res = await fetch(`/api/report/${auditId}`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(reportPayload)
             });
@@ -261,7 +264,7 @@ async function loadReport() {
     if (!auditId) { window.location.href = '/private/dashboard.html'; return; }
 
     try {
-        const res = await fetch(`/api/report/${auditId}`);
+        const res = await fetch(`/api/report/${auditId}`, { credentials: 'include' });
         if (!res.ok) { window.location.href = '/private/dashboard.html'; return; }
 
         const result = await res.json();
