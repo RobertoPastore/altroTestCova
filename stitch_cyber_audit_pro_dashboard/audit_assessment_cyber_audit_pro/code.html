@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cyber Audit Pro - Audit Module</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#4ae176",
+                        "on-primary": "#581e00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-variant": "#353534",
+                        "secondary-fixed": "#b7eaff",
+                        "on-surface": "#e5e2e1",
+                        "surface": "#131313",
+                        "outline-variant": "#5a4136",
+                        "on-tertiary-fixed-variant": "#005321",
+                        "surface-container-highest": "#353534",
+                        "primary": "#ffb596",
+                        "tertiary-fixed-dim": "#4ae176",
+                        "inverse-primary": "#a33e00",
+                        "outline": "#aa8a7d",
+                        "on-tertiary-fixed": "#002109",
+                        "surface-container-low": "#1c1b1b",
+                        "on-secondary-fixed": "#001f28",
+                        "on-error": "#690005",
+                        "tertiary-fixed": "#6bff8f",
+                        "on-secondary-container": "#00566b",
+                        "inverse-on-surface": "#313030",
+                        "surface-dim": "#131313",
+                        "secondary-fixed-dim": "#4cd6ff",
+                        "error": "#ffb4ab",
+                        "on-background": "#e5e2e1",
+                        "primary-container": "#ff6600",
+                        "on-secondary-fixed-variant": "#004e60",
+                        "secondary-container": "#14d1ff",
+                        "secondary": "#a6e6ff",
+                        "background": "#131313",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#7c2e00",
+                        "on-secondary": "#003543",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#e3bfb1",
+                        "on-primary-fixed": "#360f00",
+                        "surface-tint": "#ffb596",
+                        "surface-container": "#201f1f",
+                        "surface-bright": "#3a3939",
+                        "tertiary-container": "#00ae4f",
+                        "primary-fixed-dim": "#ffb596",
+                        "surface-container-high": "#2a2a2a",
+                        "on-primary-container": "#561d00",
+                        "primary-fixed": "#ffdbcd",
+                        "on-tertiary": "#003915",
+                        "on-tertiary-container": "#003814"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sidebar-width": "280px",
+                        "gutter": "24px",
+                        "stack-lg": "32px",
+                        "margin-page": "40px",
+                        "container-max": "1440px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "mono-data": ["Geist"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Geist"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Geist"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "mono-data": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0a0a0a;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-popover {
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 0 15px rgba(255, 102, 0, 0.05);
+        }
+
+        /* Industrial Buttons */
+        .btn-primary {
+            background-color: #ff6600;
+            color: #0a0a0a;
+            font-weight: 700;
+            box-shadow: 0 4px 0 #cc5200;
+            transition: all 0.2s ease;
+        }
+        .btn-primary:active {
+            box-shadow: 0 0 0 #cc5200;
+            transform: translateY(4px);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 4px 0 #cc5200, 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+        .btn-secondary:hover {
+            border-color: #ff6600;
+        }
+
+        /* Progress Bar blocks */
+        .progress-block {
+            flex-grow: 1;
+            height: 8px;
+            background-color: #1a1a1a;
+            margin-right: 2px;
+            border-radius: 1px;
+        }
+        .progress-block.filled {
+            background-color: #ff6600;
+        }
+        .progress-block:last-child {
+            margin-right: 0;
+        }
+
+        /* Custom Radio */
+        .custom-radio input[type="radio"] {
+            display: none;
+        }
+        .custom-radio label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            background-color: #1a1a1a;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #e5e2e1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Geist', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 0.25rem;
+        }
+        .custom-radio input[type="radio"]:checked + label.radio-yes {
+            background-color: rgba(74, 225, 118, 0.1);
+            border-color: #4ae176;
+            color: #4ae176;
+        }
+        .custom-radio input[type="radio"]:checked + label.radio-no {
+            background-color: rgba(255, 180, 171, 0.1);
+            border-color: #ffb4ab;
+            color: #ffb4ab;
+        }
+        .custom-radio input[type="radio"]:checked + label.radio-na {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="flex bg-surface-container-lowest text-on-surface">
+<!-- TopNavBar (Mobile Only) -->
+<nav class="md:hidden flex justify-between items-center w-full px-margin-page py-4 sticky top-0 z-50 bg-surface/60 dark:bg-surface/60 backdrop-blur-md border-b border-white/10">
+<div class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary tracking-tight">
+            Cyber Audit Pro
+        </div>
+<div class="flex gap-4 items-center">
+<span class="material-symbols-outlined text-primary dark:text-primary hover:text-primary transition-colors duration-200 cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-primary dark:text-primary hover:text-primary transition-colors duration-200 cursor-pointer" data-icon="account_circle">account_circle</span>
+<button class="material-symbols-outlined text-primary md:hidden" data-icon="menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">menu</button>
+</div>
+</nav>
+<!-- Mobile Menu Overlay -->
+<div class="hidden fixed inset-0 bg-black/90 z-50 flex flex-col p-8" id="mobile-menu">
+<button class="self-end material-symbols-outlined text-primary text-3xl mb-8" data-icon="close" onclick="document.getElementById('mobile-menu').classList.add('hidden')">close</button>
+<div class="flex flex-col gap-6 text-xl">
+<a class="text-on-surface-variant font-medium" href="#">Dashboard</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 w-fit" href="#">New Audit</a>
+<a class="text-on-surface-variant font-medium" href="#">Reports</a>
+<a class="text-on-surface-variant font-medium" href="#">Settings</a>
+</div>
+</div>
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden md:flex flex-col h-screen py-stack-lg bg-surface-container-low dark:bg-surface-container-low border-r border-white/10 fixed left-0 top-0 w-sidebar-width z-40">
+<!-- Brand/Header -->
+<div class="px-6 mb-8 flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center text-surface-container-lowest font-bold text-xl">
+                E
+             </div>
+<div>
+<h1 class="font-headline-md text-headline-md font-black text-on-surface">Enterprise Shield</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">GDPR Compliance</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex-1 flex flex-col gap-2 px-2 mt-4">
+<a class="text-on-surface-variant flex items-center gap-stack-md px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all rounded" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="bg-primary/10 text-primary border-l-4 border-primary flex items-center gap-stack-md px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all rounded translate-x-1 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="security" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="font-label-md text-label-md">New Audit</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-stack-md px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all rounded" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-stack-md px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all rounded" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<!-- Footer / CTA -->
+<div class="px-4 mt-auto flex flex-col gap-4">
+<button class="w-full btn-primary py-3 rounded flex items-center justify-center gap-2 font-label-md text-label-md" style="box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span> Finalize Audit
+             </button>
+<div class="flex flex-col gap-2 mt-4 pt-4 border-t border-white/10">
+<a class="text-on-surface-variant flex items-center gap-stack-md px-4 py-2 hover:bg-white/5 hover:text-on-surface transition-all rounded" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help">help</span>
+<span class="font-label-md text-label-md text-xs">Help Center</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-stack-md px-4 py-2 hover:bg-white/5 hover:text-on-surface transition-all rounded" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md text-xs">Logout</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-sidebar-width min-h-screen flex flex-col relative pb-32">
+<!-- Header & Progress -->
+<header class="w-full max-w-container-max mx-auto px-margin-page pt-10 pb-6 sticky top-0 z-30 bg-surface-container-lowest/90 backdrop-blur-md">
+<div class="flex flex-col gap-6">
+<!-- Title Row -->
+<div class="flex justify-between items-end border-b border-white/10 pb-4">
+<div>
+<p class="font-label-sm text-label-sm text-primary-container mb-2 uppercase tracking-widest">Audit Module</p>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Cyber Security Assessment</h2>
+</div>
+<div class="text-right">
+<p class="font-mono-data text-mono-data text-on-surface-variant">Step 1 of 5</p>
+<p class="font-label-sm text-label-sm text-primary mt-1">Infrastructure</p>
+</div>
+</div>
+<!-- Digital Progress Bar -->
+<div class="w-full flex">
+<div class="progress-block filled"></div>
+<div class="progress-block filled"></div>
+<div class="progress-block"></div>
+<div class="progress-block"></div>
+<div class="progress-block"></div>
+<div class="progress-block"></div>
+<div class="progress-block"></div>
+<div class="progress-block"></div>
+<div class="progress-block"></div>
+<div class="progress-block"></div>
+</div>
+</div>
+</header>
+<!-- Checklist Content -->
+<section class="w-full max-w-container-max mx-auto px-margin-page flex-1 flex flex-col gap-6 mt-6">
+<div class="mb-4">
+<h3 class="font-headline-md text-headline-md text-inverse-surface">Section 1: Infrastructure</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 max-w-3xl">Evaluate the foundational security measures protecting your core network and server infrastructure. Provide accurate responses based on current configurations.</p>
+</div>
+<!-- Card 1 -->
+<div class="glass-panel p-6 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-6 relative">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-primary-container"></div>
+<div class="flex-1 pl-2">
+<h4 class="font-body-lg text-body-lg text-on-surface mb-1">1.1 Are user passwords encrypted in transit and at rest?</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Verify that TLS/SSL is enforced for transit and a strong hashing algorithm (e.g., Argon2, bcrypt) is used for storage.</p>
+</div>
+<div class="flex gap-3 custom-radio shrink-0">
+<div>
+<input id="q1-yes" name="q1" type="radio" value="yes"/>
+<label class="radio-yes" for="q1-yes">Yes</label>
+</div>
+<div>
+<input id="q1-no" name="q1" type="radio" value="no"/>
+<label class="radio-no" for="q1-no">No</label>
+</div>
+<div>
+<input id="q1-na" name="q1" type="radio" value="na"/>
+<label class="radio-na" for="q1-na">N/A</label>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="glass-panel p-6 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-6 relative">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-primary-container"></div>
+<div class="flex-1 pl-2">
+<h4 class="font-body-lg text-body-lg text-on-surface mb-1">1.2 Is Multi-Factor Authentication (MFA) mandated for all administrative access?</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Includes SSH, VPNs, cloud control panels, and critical internal dashboards.</p>
+</div>
+<div class="flex gap-3 custom-radio shrink-0">
+<div>
+<input checked="" id="q2-yes" name="q2" type="radio" value="yes"/>
+<label class="radio-yes" for="q2-yes">Yes</label>
+</div>
+<div>
+<input id="q2-no" name="q2" type="radio" value="no"/>
+<label class="radio-no" for="q2-no">No</label>
+</div>
+<div>
+<input id="q2-na" name="q2" type="radio" value="na"/>
+<label class="radio-na" for="q2-na">N/A</label>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="glass-panel p-6 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-6 relative">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-primary-container"></div>
+<div class="flex-1 pl-2">
+<h4 class="font-body-lg text-body-lg text-on-surface mb-1">1.3 Are default vendor credentials changed before systems are deployed?</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Applies to routers, switches, IoT devices, and pre-packaged software appliances.</p>
+</div>
+<div class="flex gap-3 custom-radio shrink-0">
+<div>
+<input id="q3-yes" name="q3" type="radio" value="yes"/>
+<label class="radio-yes" for="q3-yes">Yes</label>
+</div>
+<div>
+<input checked="" id="q3-no" name="q3" type="radio" value="no"/>
+<label class="radio-no" for="q3-no">No</label>
+</div>
+<div>
+<input id="q3-na" name="q3" type="radio" value="na"/>
+<label class="radio-na" for="q3-na">N/A</label>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="glass-panel p-6 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-6 relative">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-surface-variant"></div>
+<div class="flex-1 pl-2">
+<h4 class="font-body-lg text-body-lg text-on-surface mb-1">1.4 Is an Intrusion Detection/Prevention System (IDS/IPS) actively monitoring ingress/egress traffic?</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ensure rulesets are updated automatically at least weekly.</p>
+</div>
+<div class="flex gap-3 custom-radio shrink-0">
+<div>
+<input id="q4-yes" name="q4" type="radio" value="yes"/>
+<label class="radio-yes" for="q4-yes">Yes</label>
+</div>
+<div>
+<input id="q4-no" name="q4" type="radio" value="no"/>
+<label class="radio-no" for="q4-no">No</label>
+</div>
+<div>
+<input id="q4-na" name="q4" type="radio" value="na"/>
+<label class="radio-na" for="q4-na">N/A</label>
+</div>
+</div>
+</div>
+</section>
+<!-- Sticky Bottom Bar -->
+<div class="fixed bottom-0 left-0 right-0 md:left-sidebar-width glass-popover border-t border-white/10 z-40">
+<div class="w-full max-w-container-max mx-auto px-margin-page py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+<button class="btn-secondary px-6 py-3 rounded font-label-md text-label-md flex items-center gap-2 w-full sm:w-auto justify-center">
+<span class="material-symbols-outlined text-sm" data-icon="save">save</span> Save Progress
+                </button>
+<div class="flex items-center gap-4 w-full sm:w-auto">
+<span class="font-mono-data text-mono-data text-on-surface-variant hidden sm:inline-block">20% Complete</span>
+<button class="btn-primary px-8 py-3 rounded font-label-md text-label-md flex items-center gap-2 w-full sm:w-auto justify-center">
+                        Next Step <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

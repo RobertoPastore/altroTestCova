@@ -1,59 +1,99 @@
 <!DOCTYPE html>
-<html lang="it">
+<html class="dark" lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Registra la tua Azienda — Cyber Audit Pro</title>
+    <!-- Tailwind CDN & Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Geist:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind Config & Custom CSS -->
+    <script src="/script/tailwind-setup.js"></script>
     <link rel="stylesheet" href="/style/style.css">
 </head>
-<body class="public-page" style="justify-content: center; align-items: center; display: flex; min-height: 100vh; flex-direction: column;">
-    <div class="container container-sm">
-        <div class="text-center mb-2" style="padding-top: 2rem;">
-            <a href="/" class="nav-brand"><span class="brand-icon">🛡️</span> Cyber Audit Pro</a>
+<body class="font-body-md text-body-md antialiased min-h-screen flex items-center justify-center relative overflow-x-hidden py-10">
+    <!-- Decorative background glow -->
+    <div class="absolute top-[30%] left-[50%] -translate-x-1/2 w-[60%] h-[60%] bg-primary-container/10 blur-[150px] rounded-full pointer-events-none -z-10"></div>
+
+    <div class="w-full max-w-[600px] px-4 flex flex-col gap-6 relative z-10">
+        
+        <div class="text-center mb-2">
+            <a href="/" class="inline-flex items-center justify-center gap-2 text-on-surface hover:text-primary transition-colors text-xl font-bold">
+                <span class="material-symbols-outlined text-primary-container">shield</span>
+                Cyber Audit Pro
+            </a>
         </div>
-        <div class="glass-card card-highlight">
-            <h2 class="text-center">Registra la tua Azienda</h2>
-            <p class="text-center text-sm">Compila i dati per creare l'account della tua azienda e il tuo profilo Manager.</p>
-            <div id="subscribeAlert" class="alert"></div>
-            <form id="subscribeForm">
-                <div class="section-header"><span class="section-icon">🏢</span> Dati Aziendali</div>
-                <div class="form-group">
-                    <label for="nome_azienda">Nome Azienda</label>
-                    <input type="text" id="nome_azienda" class="form-control" placeholder="Es. Rossi S.r.l." required>
-                </div>
-                <div class="form-group">
-                    <label for="partita_iva">Partita IVA</label>
-                    <input type="text" id="partita_iva" class="form-control" placeholder="Es. IT01234567890" required>
-                    <p class="form-hint">Deve essere unica nel sistema.</p>
-                </div>
-                <hr class="section-divider">
-                <div class="section-header"><span class="section-icon">👤</span> Profilo Manager</div>
-                <p class="text-sm" style="margin-bottom: 1rem;">Il Manager è l'amministratore dell'azienda: potrà creare altri utenti e gestire gli audit.</p>
-                <div class="form-group">
-                    <label for="nome_utente">Nome e Cognome</label>
-                    <input type="text" id="nome_utente" class="form-control" placeholder="Es. Marco Rossi" required>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="email">Email Lavorativa</label>
-                        <input type="email" id="email" class="form-control" placeholder="marco@azienda.it" required>
+
+        <div class="glass-card rounded-xl p-8 flex flex-col gap-6 border-t border-t-primary-container/30 shadow-[0_0_20px_rgba(249,115,22,0.1)]">
+            <div class="text-center">
+                <h2 class="font-headline-md text-headline-md text-on-surface">Deploy Tenant Space</h2>
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Register your company to instantiate a secure audit environment.</p>
+            </div>
+
+            <!-- Alert Container -->
+            <div id="subscribeAlert" class="hidden p-3 rounded font-body-sm text-body-sm bg-error-container/20 border border-error-container/50 text-error-container text-center"></div>
+
+            <form id="subscribeForm" class="flex flex-col gap-6">
+                
+                <!-- Dati Aziendali -->
+                <div class="flex flex-col gap-4">
+                    <div class="flex items-center gap-2 text-primary font-bold border-b border-white/10 pb-2">
+                        <span class="material-symbols-outlined">domain</span>
+                        <span class="uppercase tracking-wider text-sm">Company Data</span>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" class="form-control" placeholder="Min. 6 caratteri" minlength="6" required>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label for="nome_azienda" class="font-label-md text-label-md text-on-surface-variant">Company Name</label>
+                        <input type="text" id="nome_azienda" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="e.g. Acme Corp" required>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label for="partita_iva" class="font-label-md text-label-md text-on-surface-variant">VAT Number (Partita IVA)</label>
+                        <input type="text" id="partita_iva" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="e.g. IT01234567890" required>
+                        <span class="text-[11px] text-on-surface-variant">Must be unique across the platform.</span>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block" style="margin-top: 0.5rem;">
-                    <span class="btn-text">Crea Account e Azienda</span>
-                    <span class="loader" id="subscribeLoader"></span>
+
+                <!-- Profilo Manager -->
+                <div class="flex flex-col gap-4 mt-2">
+                    <div class="flex items-center gap-2 text-primary font-bold border-b border-white/10 pb-2">
+                        <span class="material-symbols-outlined">admin_panel_settings</span>
+                        <span class="uppercase tracking-wider text-sm">Manager Profile</span>
+                    </div>
+                    
+                    <div class="flex flex-col gap-1.5">
+                        <label for="nome_utente" class="font-label-md text-label-md text-on-surface-variant">Full Name</label>
+                        <input type="text" id="nome_utente" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="e.g. Jane Doe" required>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex flex-col gap-1.5">
+                            <label for="email" class="font-label-md text-label-md text-on-surface-variant">Work Email</label>
+                            <input type="email" id="email" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="jane@acme.com" required>
+                        </div>
+                        
+                        <div class="flex flex-col gap-1.5">
+                            <label for="password" class="font-label-md text-label-md text-on-surface-variant">Password</label>
+                            <input type="password" id="password" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="Min. 6 characters" minlength="6" required>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary w-full py-3 rounded mt-4 font-label-md text-label-md flex justify-center items-center gap-2">
+                    <span class="btn-text">Initialize Tenant & Create Account</span>
+                    <span class="material-symbols-outlined text-sm hidden" id="subscribeLoader" style="animation: spin 1s linear infinite;">sync</span>
                 </button>
             </form>
-            <div class="text-center mt-1">
-                <p class="text-sm text-muted">Hai già un account? <a href="/login.html" style="color: var(--primary);">Accedi qui</a></p>
+
+            <div class="text-center mt-2 border-t border-white/5 pt-4">
+                <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Already registered? 
+                    <a href="/login.html" class="text-primary hover:text-primary-fixed transition-colors font-medium">Authenticate here</a>
+                </p>
             </div>
         </div>
     </div>
-    <footer class="footer"><p>© 2026 Cyber Audit Pro</p></footer>
     <script src="/script/script.js"></script>
 </body>
 </html>

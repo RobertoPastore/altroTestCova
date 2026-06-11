@@ -1,224 +1,172 @@
 <!DOCTYPE html>
-<html lang="it">
+<html class="dark" lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Come Funziona — Cyber Audit Pro</title>
+    <!-- Tailwind CDN & Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Geist:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind Config & Custom CSS -->
+    <script src="/script/tailwind-setup.js"></script>
     <link rel="stylesheet" href="/style/style.css">
-    <style>
-        .landing-nav {
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: var(--radius-xl);
-            padding: 1rem 1.5rem;
-            margin-top: 1rem;
-            border: 1px solid var(--border-subtle);
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .hero-simple {
-            padding: 4rem 0 2rem;
-            text-align: center;
-        }
-
-        .hero-simple h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
-        .hero-simple p { font-size: 1.1rem; color: var(--text-secondary); max-width: 650px; margin: 0 auto; }
-
-        /* Timeline Styles */
-        .timeline {
-            position: relative;
-            max-width: 900px;
-            margin: 4rem auto;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 40px;
-            height: 100%; width: 4px;
-            background: var(--gray-200);
-            border-radius: 4px;
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 3rem;
-            padding-left: 100px;
-        }
-
-        .timeline-item:last-child { margin-bottom: 0; }
-
-        .timeline-badge {
-            position: absolute;
-            left: 16px; top: 0;
-            width: 52px; height: 52px;
-            border-radius: 50%;
-            background: var(--bg-body);
-            border: 4px solid var(--primary);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; font-weight: 800; color: var(--primary);
-            box-shadow: 0 0 0 4px var(--bg-body);
-            z-index: 10;
-        }
-
-        .timeline-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            box-shadow: var(--shadow-card);
-            position: relative;
-        }
-
-        .timeline-content::before {
-            content: '';
-            position: absolute;
-            top: 20px; left: -10px;
-            border-width: 10px 10px 10px 0;
-            border-style: solid;
-            border-color: transparent var(--border-subtle) transparent transparent;
-        }
-        .timeline-content::after {
-            content: '';
-            position: absolute;
-            top: 21px; left: -8px;
-            border-width: 9px 9px 9px 0;
-            border-style: solid;
-            border-color: transparent var(--bg-card) transparent transparent;
-        }
-
-        .timeline-content h3 { font-size: 1.4rem; color: var(--text-primary); margin-bottom: 0.5rem; }
-        .timeline-content p { color: var(--text-secondary); margin-bottom: 1.5rem; }
-        
-        .mockup-box {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
-            font-family: monospace;
-            font-size: 0.85rem;
-            color: var(--gray-600);
-        }
-
-        @media (max-width: 768px) {
-            .timeline::before { left: 20px; }
-            .timeline-item { padding-left: 60px; }
-            .timeline-badge { left: -4px; width: 44px; height: 44px; font-size: 1.2rem; }
-            .timeline-content::before, .timeline-content::after { display: none; }
-            .timeline-content { padding: 1.5rem; }
-        }
-    </style>
 </head>
-<body class="public-page">
-    <div class="container">
-        
-        <!-- Navbar -->
-        <nav class="public-nav landing-nav">
-            <a href="/" class="nav-brand">
-                <span class="brand-icon">🛡️</span> Cyber Audit Pro
-            </a>
-            <div class="nav-links">
-                <a href="/index.html" style="font-weight: 500;">Home</a>
-                <a href="/login.html" style="font-weight: 500;">Accedi</a>
-                <a href="/register.html" class="btn btn-primary">Inizia Gratis</a>
-            </div>
+<body class="font-body-md text-body-md antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+    
+    <!-- Decorative background glow -->
+    <div class="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary-container/20 blur-[150px] rounded-full pointer-events-none -z-10"></div>
+
+    <!-- Navigation -->
+    <header class="w-full flex justify-between items-center px-6 md:px-margin-page py-6 sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-white/5">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">shield</span>
+            <span class="font-headline-md text-headline-md font-bold text-on-surface">Cyber Audit Pro</span>
+        </div>
+        <nav class="hidden md:flex gap-8">
+            <a href="/index.html" class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors">Home</a>
+            <a href="/login.html" class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors">Sign In</a>
         </nav>
+        <div class="hidden md:block">
+            <a href="/register.html" class="btn-primary px-6 py-2 rounded font-label-md text-label-md inline-block">Deploy Tenant Space</a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-on-surface">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+    </header>
 
-        <!-- Header -->
-        <section class="hero-simple">
-            <span class="badge badge-orange" style="margin-bottom: 1rem;">Guida Ufficiale</span>
-            <h1>Come funziona la <span class="gradient-text">Piattaforma</span></h1>
-            <p>Scopri l'intero processo: dalla creazione del tuo account aziendale alla generazione automatizzata del report di conformità e vulnerabilità.</p>
-        </section>
+    <main class="flex-1 flex flex-col items-center px-4 py-16 md:py-24">
+        
+        <div class="text-center mb-16">
+            <span class="inline-block px-3 py-1 rounded bg-primary-container/20 text-primary font-label-sm text-label-sm uppercase tracking-wider mb-6 border border-primary/30">
+                Official Guide
+            </span>
+            <h1 class="font-display-lg text-display-lg text-on-surface max-w-3xl mx-auto mb-4">
+                Architecture & <span class="text-primary-container">Workflow</span>
+            </h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                Scopri l'intero processo: dalla creazione del tuo tenant isolato alla generazione automatizzata del report di conformità.
+            </p>
+        </div>
 
-        <!-- Timeline -->
-        <div class="timeline">
-            
+        <!-- Timeline container -->
+        <div class="relative max-w-4xl w-full mx-auto pb-10">
+            <!-- Linea verticale -->
+            <div class="absolute left-[38px] md:left-[50px] top-0 bottom-0 w-1 bg-surface-container rounded-full"></div>
+
             <!-- STEP 1 -->
-            <div class="timeline-item">
-                <div class="timeline-badge">1</div>
-                <div class="timeline-content">
-                    <h3>Registrazione Multi-Tenant (Isolata)</h3>
-                    <p>La piattaforma è pensata per le aziende (approccio B2B). Quando ti registri, viene creato un ambiente sicuro (Tenant) dedicato solo alla tua partita IVA, completamente separato dagli altri. In questo momento tu diventi il "Manager" principale del tuo spazio.</p>
+            <div class="relative pl-[90px] md:pl-[120px] mb-16">
+                <!-- Badge -->
+                <div class="absolute left-[16px] md:left-[24px] top-0 w-12 h-12 rounded-full bg-background border-4 border-primary-container text-primary-container font-headline-md text-headline-md flex items-center justify-center z-10 shadow-[0_0_0_8px_#0a0a0a]">
+                    1
+                </div>
+                <!-- Content -->
+                <div class="glass-card rounded-xl p-6 relative">
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Registrazione Multi-Tenant (Isolata)</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-6">La piattaforma è pensata per le aziende (approccio B2B). Quando ti registri, viene creato un ambiente sicuro (Tenant) dedicato solo alla tua partita IVA, completamente separato dagli altri. In questo momento tu diventi il "Manager" principale del tuo spazio.</p>
                     
-                    <div class="mockup-box" style="border-left: 4px solid var(--orange-500);">
-                        <strong>Azione Utente:</strong><br>
+                    <div class="bg-surface-container-highest/30 border-l-4 border-primary-container p-4 rounded-r font-mono-data text-mono-data text-on-surface-variant text-sm">
+                        <strong class="text-on-surface">Azione Utente:</strong><br>
                         Compila il modulo di registrazione inserendo Nome Azienda, Partita IVA, e i tuoi dati personali (Email, Password).
                     </div>
                 </div>
             </div>
 
             <!-- STEP 2 -->
-            <div class="timeline-item">
-                <div class="timeline-badge">2</div>
-                <div class="timeline-content">
-                    <h3>Dashboard e Gestione dello Staff</h3>
-                    <p>Una volta fatto l'accesso, atterrerai in una plancia di comando laterale (Sidebar) pulita e moderna. Se sei un Manager, potrai creare utenze per i tuoi dipendenti direttamente dal pannello "Gestione Utenti".</p>
+            <div class="relative pl-[90px] md:pl-[120px] mb-16">
+                <!-- Badge -->
+                <div class="absolute left-[16px] md:left-[24px] top-0 w-12 h-12 rounded-full bg-background border-4 border-primary-container text-primary-container font-headline-md text-headline-md flex items-center justify-center z-10 shadow-[0_0_0_8px_#0a0a0a]">
+                    2
+                </div>
+                <!-- Content -->
+                <div class="glass-card rounded-xl p-6 relative">
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Dashboard e Gestione dello Staff</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-4">Una volta fatto l'accesso, atterrerai in una plancia di comando laterale (Sidebar) rigorosamente scura. Se sei un Manager, potrai creare utenze per i tuoi dipendenti direttamente dal pannello "Gestione Utenti".</p>
                     
-                    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: var(--text-secondary); line-height: 1.7;">
-                        <li><strong>Ruolo Manager:</strong> Può aggiungere o rimuovere operatori e vedere le statistiche globali.</li>
-                        <li><strong>Ruolo User (Operativo):</strong> Può unicamente eseguire le valutazioni (Audit) senza avere permessi amministrativi.</li>
+                    <ul class="list-disc ml-6 space-y-2 text-on-surface-variant font-body-sm text-body-sm">
+                        <li><strong class="text-on-surface">Ruolo Manager:</strong> Può aggiungere o rimuovere operatori e vedere le statistiche globali.</li>
+                        <li><strong class="text-on-surface">Ruolo User (Operativo):</strong> Può unicamente eseguire le valutazioni (Audit) senza avere permessi amministrativi.</li>
                     </ul>
                 </div>
             </div>
 
             <!-- STEP 3 -->
-            <div class="timeline-item">
-                <div class="timeline-badge">3</div>
-                <div class="timeline-content">
-                    <h3>Esecuzione dell'Audit (Gap Analysis)</h3>
-                    <p>Dalla dashboard, clicca su "Nuovo Audit". Ti verrà presentata una Checklist tecnica divisa per sezioni: <em>Cyber Security</em> e <em>GDPR</em>. L'operatore dovrà rispondere onestamente valutando lo stato delle infrastrutture aziendali.</p>
+            <div class="relative pl-[90px] md:pl-[120px] mb-16">
+                <!-- Badge -->
+                <div class="absolute left-[16px] md:left-[24px] top-0 w-12 h-12 rounded-full bg-background border-4 border-primary-container text-primary-container font-headline-md text-headline-md flex items-center justify-center z-10 shadow-[0_0_0_8px_#0a0a0a]">
+                    3
+                </div>
+                <!-- Content -->
+                <div class="glass-card rounded-xl p-6 relative">
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Esecuzione dell'Audit (Gap Analysis)</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-6">Dalla dashboard, clicca su "New Audit". Ti verrà presentata una Checklist tecnica divisa per sezioni: <em>Cyber Security</em> e <em>GDPR</em>. L'operatore dovrà rispondere onestamente valutando lo stato delle infrastrutture aziendali.</p>
                     
-                    <div class="mockup-box" style="display: flex; gap: 1rem; align-items: center;">
-                        <span style="font-size: 2rem;">📝</span>
+                    <div class="flex gap-4 items-start bg-surface-container-highest/30 border border-white/10 p-4 rounded font-mono-data text-mono-data text-on-surface-variant text-sm">
+                        <span class="material-symbols-outlined text-primary-container text-3xl shrink-0">fact_check</span>
                         <div>
-                            <strong>Esempio di domanda:</strong><br>
+                            <strong class="text-on-surface block mb-1">Esempio di domanda:</strong>
                             "Le password aziendali seguono policy di complessità ed hanno una rotazione mensile?"<br>
-                            <em>Risposte ammesse: [Sì, presente] - [Parzialmente] - [No, assente] - [N/A]</em>
+                            <em class="text-primary-fixed block mt-2 opacity-80">Risposte ammesse: [Sì, presente] - [Parzialmente] - [No, assente] - [N/A]</em>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- STEP 4 -->
-            <div class="timeline-item">
-                <div class="timeline-badge">4</div>
-                <div class="timeline-content">
-                    <h3>Generazione del Report Automatico</h3>
-                    <p>Appena terminata la checklist, il nostro motore di valutazione calcola un punteggio di Cyber Security (da 0 a 100). Le risposte negative abbattono lo score in base a un "peso di rischio" segreto.</p>
-                    <p>Subito dopo viene sbloccato il <strong>Report di Valutazione Rischi</strong>, un documento formale che elenca:</p>
+            <div class="relative pl-[90px] md:pl-[120px] mb-16">
+                <!-- Badge -->
+                <div class="absolute left-[16px] md:left-[24px] top-0 w-12 h-12 rounded-full bg-background border-4 border-primary-container text-primary-container font-headline-md text-headline-md flex items-center justify-center z-10 shadow-[0_0_0_8px_#0a0a0a]">
+                    4
+                </div>
+                <!-- Content -->
+                <div class="glass-card rounded-xl p-6 relative">
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Generazione del Report Automatico</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-4">Appena terminata la checklist, il nostro motore calcola un punteggio di Cyber Security (da 0 a 10). Le risposte negative abbattono lo score in base a un "peso di rischio" segreto.</p>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-6">Subito dopo viene sbloccato il <strong>Report di Valutazione Rischi</strong>, un documento formale che elenca:</p>
                     
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <div style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); padding: 1rem; border-radius: var(--radius-md);">
-                            <h4 style="color: #fca5a5; margin-bottom: 0.5rem; font-size: 0.9rem;">🚨 Vulnerabilità Rilevate</h4>
-                            <span style="font-size: 0.8rem; color: #fca5a5;">Elenco delle falle tecniche esatte. Esempio: "Assente politica di backup."</span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-error-container/20 border border-error-container/50 p-4 rounded text-error-container">
+                            <h4 class="font-label-md text-label-md mb-2 flex items-center gap-2">
+                                <span class="material-symbols-outlined">gpp_bad</span> Vulnerabilità Rilevate
+                            </h4>
+                            <span class="font-body-sm text-body-sm opacity-80">Elenco delle falle tecniche esatte. Esempio: "Assente politica di backup."</span>
                         </div>
-                        <div style="background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.3); padding: 1rem; border-radius: var(--radius-md);">
-                            <h4 style="color: var(--orange-300); margin-bottom: 0.5rem; font-size: 0.9rem;">⚠️ Rischi GDPR</h4>
-                            <span style="font-size: 0.8rem; color: var(--orange-300);">Violazioni normative dedotte dalle risposte. Esempio: "Mancata cifratura DB."</span>
+                        <div class="bg-primary-container/20 border border-primary-container/50 p-4 rounded text-primary">
+                            <h4 class="font-label-md text-label-md mb-2 flex items-center gap-2">
+                                <span class="material-symbols-outlined">warning</span> Rischi GDPR
+                            </h4>
+                            <span class="font-body-sm text-body-sm opacity-80">Violazioni normative dedotte dalle risposte. Esempio: "Mancata cifratura DB."</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- STEP 5 -->
-            <div class="timeline-item">
-                <div class="timeline-badge">5</div>
-                <div class="timeline-content" style="border-color: var(--primary); box-shadow: 0 10px 30px rgba(249,115,22,0.1);">
-                    <h3>Pronti per Iniziare?</h3>
-                    <p>Non serve installare nulla. Tutto è in Cloud, protetto e isolato. Inizia mettendo al sicuro i dati della tua azienda oggi stesso.</p>
-                    <a href="/register.html" class="btn btn-primary" style="margin-top: 0.5rem;">Crea il tuo Account Gratuito →</a>
+            <div class="relative pl-[90px] md:pl-[120px]">
+                <!-- Badge -->
+                <div class="absolute left-[16px] md:left-[24px] top-0 w-12 h-12 rounded-full bg-primary-container text-on-primary-container font-headline-md text-headline-md flex items-center justify-center z-10 shadow-[0_0_20px_rgba(249,115,22,0.4)]">
+                    <span class="material-symbols-outlined">check</span>
+                </div>
+                <!-- Content -->
+                <div class="glass-card rounded-xl p-6 relative border-t border-t-primary-container shadow-[0_0_30px_rgba(249,115,22,0.1)]">
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Pronti per Iniziare?</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-6">Non serve installare nulla. Tutto è in Cloud, protetto e isolato. Inizia mettendo al sicuro i dati della tua azienda oggi stesso.</p>
+                    <a href="/register.html" class="btn-primary px-6 py-3 rounded font-label-md text-label-md inline-flex items-center gap-2">
+                        Deploy Tenant Space <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </a>
                 </div>
             </div>
-
+            
         </div>
-    </div>
-    
-    <footer class="footer mt-2" style="border-top: 1px solid var(--border-subtle); background: transparent;">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 2rem 0;">
-            <div style="font-weight: 700; color: var(--text-primary);">🛡️ Cyber Audit Pro</div>
-            <p style="margin: 0; color: var(--text-tertiary);">© 2026 Tutti i diritti riservati.</p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-stack-lg px-6 md:px-margin-page border-t border-white/5 bg-surface-container-lowest flex flex-col md:flex-row justify-between items-center gap-stack-md text-on-surface-variant mt-auto">
+        <span class="font-body-sm text-body-sm">© 2026 Cyber Audit Pro. Industrial-Grade Security.</span>
+        <div class="flex gap-4">
+            <a class="font-label-sm text-label-sm hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+            <a class="font-label-sm text-label-sm hover:text-on-surface transition-colors" href="#">Terms of Service</a>
         </div>
     </footer>
 </body>
