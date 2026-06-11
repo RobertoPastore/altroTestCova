@@ -27,8 +27,8 @@
 
         <div class="glass-card rounded-xl p-8 flex flex-col gap-6 border-t border-t-primary-container/30 shadow-[0_0_20px_rgba(249,115,22,0.1)]">
             <div class="text-center">
-                <h2 class="font-headline-md text-headline-md text-on-surface">Deploy Tenant Space</h2>
-                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Register your company to instantiate a secure audit environment.</p>
+                <h2 class="font-headline-md text-headline-md text-on-surface">Registra la tua Azienda</h2>
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Compila i dati per creare l'account della tua azienda e il tuo profilo Manager.</p>
             </div>
 
             <!-- Alert Container -->
@@ -40,18 +40,18 @@
                 <div class="flex flex-col gap-4">
                     <div class="flex items-center gap-2 text-primary font-bold border-b border-white/10 pb-2">
                         <span class="material-symbols-outlined">domain</span>
-                        <span class="uppercase tracking-wider text-sm">Company Data</span>
+                        <span class="uppercase tracking-wider text-sm">Dati Aziendali</span>
                     </div>
 
                     <div class="flex flex-col gap-1.5">
-                        <label for="nome_azienda" class="font-label-md text-label-md text-on-surface-variant">Company Name</label>
-                        <input type="text" id="nome_azienda" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="e.g. Acme Corp" required>
+                        <label for="nome_azienda" class="font-label-md text-label-md text-on-surface-variant">Nome Azienda</label>
+                        <input type="text" id="nome_azienda" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="Es. Rossi S.r.l." required>
                     </div>
 
                     <div class="flex flex-col gap-1.5">
-                        <label for="partita_iva" class="font-label-md text-label-md text-on-surface-variant">VAT Number (Partita IVA)</label>
-                        <input type="text" id="partita_iva" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="e.g. IT01234567890" required>
-                        <span class="text-[11px] text-on-surface-variant">Must be unique across the platform.</span>
+                        <label for="partita_iva" class="font-label-md text-label-md text-on-surface-variant">Partita IVA</label>
+                        <input type="text" id="partita_iva" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="Es. IT01234567890" required>
+                        <span class="text-[11px] text-on-surface-variant">Deve essere unica nel sistema.</span>
                     </div>
                 </div>
 
@@ -59,37 +59,37 @@
                 <div class="flex flex-col gap-4 mt-2">
                     <div class="flex items-center gap-2 text-primary font-bold border-b border-white/10 pb-2">
                         <span class="material-symbols-outlined">admin_panel_settings</span>
-                        <span class="uppercase tracking-wider text-sm">Manager Profile</span>
+                        <span class="uppercase tracking-wider text-sm">Profilo Manager</span>
                     </div>
                     
                     <div class="flex flex-col gap-1.5">
-                        <label for="nome_utente" class="font-label-md text-label-md text-on-surface-variant">Full Name</label>
-                        <input type="text" id="nome_utente" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="e.g. Jane Doe" required>
+                        <label for="nome_utente" class="font-label-md text-label-md text-on-surface-variant">Nome e Cognome</label>
+                        <input type="text" id="nome_utente" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="Es. Marco Rossi" required>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="flex flex-col gap-1.5">
-                            <label for="email" class="font-label-md text-label-md text-on-surface-variant">Work Email</label>
-                            <input type="email" id="email" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="jane@acme.com" required>
+                            <label for="email" class="font-label-md text-label-md text-on-surface-variant">Email Lavorativa</label>
+                            <input type="email" id="email" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="marco@azienda.it" required>
                         </div>
                         
                         <div class="flex flex-col gap-1.5">
                             <label for="password" class="font-label-md text-label-md text-on-surface-variant">Password</label>
-                            <input type="password" id="password" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="Min. 6 characters" minlength="6" required>
+                            <input type="password" id="password" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="Min. 6 caratteri" minlength="6" required>
                         </div>
                     </div>
                 </div>
 
                 <button type="submit" class="btn-primary w-full py-3 rounded mt-4 font-label-md text-label-md flex justify-center items-center gap-2">
-                    <span class="btn-text">Initialize Tenant & Create Account</span>
+                    <span class="btn-text">Crea Account e Azienda</span>
                     <span class="material-symbols-outlined text-sm hidden" id="subscribeLoader" style="animation: spin 1s linear infinite;">sync</span>
                 </button>
             </form>
 
             <div class="text-center mt-2 border-t border-white/5 pt-4">
                 <p class="font-body-sm text-body-sm text-on-surface-variant">
-                    Already registered? 
-                    <a href="/login.html" class="text-primary hover:text-primary-fixed transition-colors font-medium">Authenticate here</a>
+                    Hai già un account? 
+                    <a href="/login.html" class="text-primary hover:text-primary-fixed transition-colors font-medium">Accedi qui</a>
                 </p>
             </div>
         </div>
