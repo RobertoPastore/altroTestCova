@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esecuzione Audit — Cyber Audit Pro</title>
+    <link rel="stylesheet" href="/style/style.css">
+</head>
+<body>
+    <div class="container container-md">
+        <nav>
+            <a href="/private/dashboard.html" class="nav-brand">
+                <span class="brand-icon">←</span> Torna alla Dashboard
+            </a>
+            <div class="nav-links">
+                <span class="badge badge-orange" id="auditHeaderStatus">In corso</span>
+            </div>
+        </nav>
+
+        <div class="glass-card">
+            <div class="flex justify-between items-center mb-1">
+                <h2>Checklist Valutazione Rischi</h2>
+                <span class="text-sm text-muted">Audit #<span id="currentAuditId"></span></span>
+            </div>
+
+            <p class="text-sm mb-2">Rispondi a tutte le domande per generare il report di Gap Analysis. Le risposte negative influenzeranno negativamente il punteggio di rischio.</p>
+
+            <div id="checklistContainer">
+                <div class="text-center" style="padding: 3rem 0;">
+                    <span class="loader" style="display: inline-block;"></span>
+                    <p class="mt-1 text-muted">Caricamento checklist...</p>
+                </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <div class="flex justify-between items-center">
+                <button id="saveDraftBtn" class="btn btn-secondary btn-sm">💾 Salva Bozza</button>
+                <button id="completeAuditBtn" class="btn btn-primary">Concludi e Genera Report →</button>
+            </div>
+            <div id="auditAlert" class="alert mt-1"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 Cyber Audit Pro</p>
+    </footer>
+    <script src="/private/script/private_script.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => initAuditInterface());</script>
+</body>
+</html>

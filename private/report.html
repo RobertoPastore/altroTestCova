@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Audit — Cyber Audit Pro</title>
+    <link rel="stylesheet" href="/style/style.css">
+</head>
+<body>
+    <div class="container container-md">
+        <nav>
+            <a href="/private/dashboard.html" class="nav-brand">
+                <span class="brand-icon">←</span> Torna alla Dashboard
+            </a>
+            <button onclick="window.print()" class="btn btn-secondary btn-sm">🖨️ Stampa Report</button>
+        </nav>
+
+        <div id="reportLoader" class="text-center" style="padding: 4rem 0;">
+            <span class="loader" style="display: inline-block;"></span>
+            <p class="mt-1 text-muted">Caricamento report...</p>
+        </div>
+
+        <div id="reportContent" style="display: none;">
+            <header class="text-center mb-2">
+                <h1><span class="gradient-text">Report Valutazione Rischi</span></h1>
+                <p>Generato il <span id="reportDate"></span> — Audit #<span id="reportAuditId"></span></p>
+            </header>
+
+            <div class="stat-grid" style="grid-template-columns: 1fr;">
+                <div class="glass-card text-center card-highlight">
+                    <h3 class="text-muted text-sm" style="margin-bottom: 0.5rem; font-weight: 500;">PUNTEGGIO CYBER SECURITY</h3>
+                    <div id="scoreCircle" class="score-circle">
+                        <span id="scoreValue">100</span>
+                        <span class="score-label">su 100</span>
+                    </div>
+                    <p id="scoreMessage" style="font-weight: 500; margin-top: 0.5rem;"></p>
+                </div>
+            </div>
+
+            <div class="glass-card mb-2">
+                <h3>🚨 Vulnerabilità Rilevate</h3>
+                <p class="text-sm text-muted mb-1">Carenze identificate durante la valutazione.</p>
+                <div id="vulnList">
+                    <!-- populated via JS -->
+                </div>
+            </div>
+
+            <div class="glass-card mb-2">
+                <h3>⚠️ Rischi Sanzionatori GDPR</h3>
+                <p class="text-sm text-muted mb-1">Potenziali violazioni normative identificate.</p>
+                <div id="gdprList">
+                    <!-- populated via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 Cyber Audit Pro — Documento generato automaticamente</p>
+    </footer>
+    <script src="/private/script/private_script.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => loadReport());</script>
+</body>
+</html>

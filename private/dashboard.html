@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Cyber Audit Pro</title>
+    <!-- Usa percorso assoluto riferito alla root pubblica servita da express -->
+    <link rel="stylesheet" href="/style/style.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/private/dashboard.html" class="nav-brand">
+                <span class="brand-icon">🛡️</span> Cyber Audit Pro
+                <span class="badge badge-orange" id="userRoleBadge"></span>
+            </a>
+            <div class="nav-links">
+                <span id="userName" style="color: var(--text-secondary); font-size: 0.9rem;"></span>
+                <span id="companyName" style="color: var(--text-tertiary); font-size: 0.8rem;"></span>
+                <button id="logoutBtn" class="btn btn-ghost btn-sm">Logout</button>
+            </div>
+        </nav>
+
+        <!-- Welcome & Stats -->
+        <section id="welcomeSection" class="mb-2">
+            <h1><span class="gradient-text">Dashboard</span></h1>
+            <p id="welcomeMessage">Benvenuto nella tua area operativa.</p>
+        </section>
+
+        <div class="stat-grid" id="statsGrid">
+            <div class="stat-card">
+                <div class="stat-value" id="statTotalAudit">0</div>
+                <div class="stat-label">Audit Totali</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statCompleted">0</div>
+                <div class="stat-label">Completati</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statInProgress">0</div>
+                <div class="stat-label">In Corso</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statUsers">0</div>
+                <div class="stat-label">Utenti</div>
+            </div>
+        </div>
+
+        <!-- Audit Section -->
+        <div class="glass-card mb-2">
+            <div class="flex justify-between items-center mb-1">
+                <h2>📋 Audit</h2>
+                <button id="newAuditBtn" class="btn btn-primary btn-sm">+ Nuovo Audit</button>
+            </div>
+            <div class="table-container">
+                <table id="auditTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Data</th>
+                            <th>Creato da</th>
+                            <th>Stato</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- populated via JS -->
+                    </tbody>
+                </table>
+                <div class="empty-state" id="auditEmptyState" style="display: none;">
+                    <span class="empty-icon">📋</span>
+                    <p>Nessun audit ancora. Clicca "Nuovo Audit" per iniziare la tua prima valutazione.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Section (Manager/Admin only) -->
+        <div class="glass-card" id="usersSection">
+            <h2>👥 Gestione Utenti</h2>
+            <div class="table-container mb-1">
+                <table id="usersTable">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Ruolo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- populated via JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <hr class="section-divider">
+
+            <h3>Aggiungi Utente</h3>
+            <div id="userAlert" class="alert"></div>
+            <form id="createUserForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" id="newUserName" class="form-control" placeholder="Nome completo" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="newUserEmail" class="form-control" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="password" id="newUserPassword" class="form-control" placeholder="Password temporanea" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="newUserRole" class="form-control" required>
+                            <option value="User">User (Operativo)</option>
+                            <option value="Manager">Manager</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Aggiungi Utente</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 Cyber Audit Pro</p>
+    </footer>
+    <script src="/private/script/private_script.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => initDashboard());</script>
+</body>
+</html>
