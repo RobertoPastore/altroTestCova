@@ -52,10 +52,13 @@ tailwind.config = {
                     "on-tertiary-container": "#003814"
             },
             "borderRadius": {
-                    "DEFAULT": "0.125rem",
-                    "lg": "0.25rem",
-                    "xl": "0.5rem",
-                    "full": "0.75rem"
+                    "DEFAULT": "0.5rem",
+                    "sm": "0.375rem",
+                    "md": "0.5rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "2xl": "2rem",
+                    "full": "9999px"
             },
             "spacing": {
                     "sidebar-width": "280px",
