@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html class="dark" lang="it">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>CyberAudit Pro - Mission Control</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#e2bfb0",
+                        "on-secondary": "#303030",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-variant": "#353534",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#351000",
+                        "secondary-fixed": "#e4e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "primary": "#ffb693",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "tertiary-fixed": "#e5e2e1",
+                        "error": "#ffb4ab",
+                        "tertiary": "#c8c6c5",
+                        "outline": "#a98a7d",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "outline-variant": "#5a4136",
+                        "surface-dim": "#131313",
+                        "on-tertiary": "#313030",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-primary": "#561f00",
+                        "background": "#131313",
+                        "on-surface": "#e5e2e1",
+                        "secondary-container": "#474746",
+                        "secondary": "#c8c6c5",
+                        "inverse-primary": "#a04100",
+                        "on-secondary-container": "#b6b5b4",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary-container": "#9a9898",
+                        "on-background": "#e5e2e1",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "surface-bright": "#3a3939",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#ffdbcc",
+                        "inverse-on-surface": "#313030",
+                        "surface-tint": "#ffb693",
+                        "on-primary-container": "#572000",
+                        "surface": "#131313",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-tertiary-container": "#313131",
+                        "primary-container": "#ff6b00",
+                        "primary-fixed-dim": "#ffb693",
+                        "surface-container-highest": "#353534",
+                        "surface-container": "#201f1f",
+                        "on-tertiary-fixed-variant": "#474746"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding-desktop": "32px",
+                        "gutter": "24px",
+                        "container-padding-mobile": "20px",
+                        "md": "24px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "xl": "64px",
+                        "lg": "40px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Plus Jakarta Sans"],
+                        "headline-xl-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0F0F0F;
+            color: #e5e2e1;
+        }
+        
+        .glass-card {
+            background-color: rgba(53, 53, 52, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glow-shadow {
+            box-shadow: 0 0 24px rgba(255, 107, 0, 0.3);
+        }
+        
+        /* Smooth scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #474746; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ffb693; }
+
+        /* Table styles per non spaccare il design ultra-rounded */
+        table { width: 100%; border-collapse: separate; border-spacing: 0; }
+        th { padding: 12px 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 12px; color: #e2bfb0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        td { padding: 12px 16px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background-color: rgba(255,255,255,0.05); }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased h-screen flex overflow-hidden">
+
+    <!-- SideNavBar (Desktop) -->
+    <nav class="hidden md:flex flex-col bg-surface-container text-primary font-label-md text-label-md fixed left-0 top-0 h-full w-64 rounded-r-lg border-r border-outline-variant/10 shadow-md py-lg space-y-base z-30">
+        <div class="px-lg mb-xl">
+            <div class="flex items-center gap-sm mb-md">
+                <img alt="Organization Logo" class="w-10 h-10 rounded-full object-cover border-2 border-primary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFi93RIcdTeUMcAvHuPnGmEEUK-GH_X8wao5U6PABxEYzpldZuyr0_bXn3SfQa36VO2tZpR2LbZ01JQ2IgMsIfx_qo0EZd8BjrwmNPPAFvA2iIboYIy5L-n3fW5yGr8wXjbY3KrX8KHwfCu8ruLvh3P3V-mWxY6EDhl0BEIdtcB-SuqzYI7LMeaIAyhZIf1qotdrMoTIv3KfaT0sr6NWZ5oRenSl0oGSWUbeTaHWj0N1tuT_WsIXcbcreZt9tgdoqhRqeORSiAALk"/>
+                <div class="overflow-hidden">
+                    <h1 id="userName" class="font-headline-sm text-headline-sm text-primary font-bold truncate">Caricamento...</h1>
+                    <p class="text-on-surface-variant text-label-sm truncate" id="companyName">Attendere...</p>
+                    <span id="userRoleBadge" class="hidden"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto px-xs space-y-2">
+            <!-- TAB DASHBOARD -->
+            <a id="tab-dashboard" onclick="switchView('dashboard')" class="cursor-pointer flex items-center gap-sm bg-primary-container text-on-primary-container rounded-full px-md py-sm mx-sm transition-transform active:scale-98">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                <span>Dashboard</span>
+            </a>
+            
+            <!-- TAB UTENTI -->
+            <a id="tab-users" onclick="switchView('users')" class="cursor-pointer flex items-center gap-sm text-on-surface-variant px-md py-sm mx-sm hover:bg-secondary-container/50 rounded-full transition-transform active:scale-98 hidden">
+                <span class="material-symbols-outlined">group</span>
+                <span>Gestione Utenti</span>
+            </a>
+
+            <!-- TAB DOCUMENTI -->
+            <a id="tab-documenti" onclick="switchView('documenti')" class="cursor-pointer flex items-center gap-sm text-on-surface-variant px-md py-sm mx-sm hover:bg-secondary-container/50 rounded-full transition-transform active:scale-98">
+                <span class="material-symbols-outlined">folder</span>
+                <span>Documenti</span>
+            </a>
+        </div>
+
+        <div class="px-md mt-auto pt-md space-y-sm border-t border-outline-variant/10 mx-md">
+            <a id="logoutBtn" class="cursor-pointer flex items-center gap-sm text-on-surface-variant px-md py-sm hover:bg-secondary-container/50 rounded-full transition-transform active:scale-98">
+                <span class="material-symbols-outlined">logout</span>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- TopNavBar (Mobile) -->
+    <header class="md:hidden bg-background/80 backdrop-blur-xl text-primary font-body-md text-body-md w-full h-16 fixed top-0 left-0 border-b border-outline-variant/10 shadow-sm flex justify-between items-center px-lg z-40">
+        <h1 class="font-headline-md text-headline-md font-bold text-primary">CyberAudit Pro</h1>
+        <div class="flex items-center gap-md">
+            <button id="logoutBtnMobile" class="text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all active:scale-95 duration-200 p-sm">
+                <span class="material-symbols-outlined">logout</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 md:ml-64 mt-16 md:mt-0 p-container-padding-mobile md:p-container-padding-desktop overflow-y-auto w-full relative">
+        
+        <!-- ==============================
+             VIEW DASHBOARD
+        =============================== -->
+        <div id="view-dashboard" class="flex flex-col gap-6 w-full">
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+                <div>
+                    <h2 class="font-headline-xl-mobile md:font-headline-xl text-on-surface">Mission Control</h2>
+                    <p id="welcomeMessage" class="text-on-surface-variant font-body-lg">Real-time threat monitoring and network status.</p>
+                </div>
+                <div class="flex gap-sm">
+                    <button id="newAuditBtn" class="bg-gradient-to-r from-primary-container to-primary text-on-primary-container px-lg py-sm rounded-full glow-shadow hover:opacity-90 transition-opacity font-bold font-label-md flex items-center gap-xs cursor-pointer">
+                        <span class="material-symbols-outlined">security</span> Run Audit
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bento Grid -->
+            <div class="grid grid-cols-4 md:grid-cols-12 gap-gutter">
+                
+                <!-- Overall Health Score (Estetico) -->
+                <div class="col-span-4 md:col-span-8 glass-card rounded-xl p-lg flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary-container/10 rounded-full blur-3xl group-hover:bg-primary-container/20 transition-all duration-700"></div>
+                    <div class="flex justify-between items-start relative z-10 mb-xl">
+                        <div>
+                            <h3 class="font-headline-md text-on-surface flex items-center gap-sm">
+                                <span class="material-symbols-outlined text-primary p-xs bg-primary/10 rounded-full">health_and_safety</span> System Health
+                            </h3>
+                            <p class="text-on-surface-variant mt-xs">Current network resilience index</p>
+                        </div>
+                        <div class="bg-surface-container px-md py-sm rounded-full border border-outline-variant/30 flex items-center gap-xs">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 glow-shadow"></span>
+                            <span class="font-label-md text-on-surface">Live Monitoring</span>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex flex-col md:flex-row items-end justify-between gap-lg">
+                        <div class="flex items-baseline gap-sm">
+                            <span class="text-6xl md:text-8xl font-bold text-on-surface tracking-tighter">92</span>
+                            <span class="font-headline-lg text-primary">/100</span>
+                        </div>
+                        <div class="w-full md:w-1/2 space-y-md">
+                            <div>
+                                <div class="flex justify-between font-label-sm mb-xs"><span class="text-on-surface-variant">Firewall Integrity</span><span class="text-primary">98%</span></div>
+                                <div class="w-full bg-surface-container rounded-full h-3"><div class="bg-primary h-3 rounded-full glow-shadow" style="width: 98%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between font-label-sm mb-xs"><span class="text-on-surface-variant">Endpoint Security</span><span class="text-primary">85%</span></div>
+                                <div class="w-full bg-surface-container rounded-full h-3"><div class="bg-primary h-3 rounded-full glow-shadow" style="width: 85%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audit Stats (Dinamico) -->
+                <div class="col-span-4 md:col-span-4 glass-card rounded-xl p-lg flex flex-col relative justify-between">
+                    <div class="flex justify-between items-center mb-md">
+                        <h3 class="font-headline-md text-on-surface flex items-center gap-sm">
+                            <span class="material-symbols-outlined text-tertiary p-xs bg-tertiary/10 rounded-full">assessment</span> Statistiche
+                        </h3>
+                    </div>
+                    <div class="flex-1 flex flex-col justify-center gap-4 py-4">
+                        <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                            <span class="font-label-md text-on-surface-variant">Totale Audit</span>
+                            <span id="statTotalAudit" class="font-headline-lg text-on-surface font-bold">0</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                            <span class="font-label-md text-on-surface-variant">In Corso</span>
+                            <span id="statInProgress" class="font-headline-lg text-primary-container font-bold">0</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-label-md text-on-surface-variant">Completati</span>
+                            <span id="statCompleted" class="font-headline-lg text-tertiary font-bold">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Audit Logs (La nostra tabella Reale) -->
+                <div class="col-span-4 md:col-span-12 glass-card rounded-xl p-lg mt-md">
+                    <h3 class="font-headline-md text-on-surface mb-md">Recent Audit Logs</h3>
+                    <div class="overflow-x-auto">
+                        <table id="auditTable" class="w-full text-left">
+                            <thead>
+                                <tr>
+                                    <th>ID / Data</th>
+                                    <th>Creato da</th>
+                                    <th>Stato</th>
+                                    <th class="text-right">Azioni</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentAuditList" class="divide-y divide-white/5">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="hidden text-center py-10" id="auditEmptyState">
+                        <div class="w-16 h-16 rounded-full bg-surface-variant/30 flex items-center justify-center text-on-surface-variant mx-auto mb-4">
+                            <span class="material-symbols-outlined text-3xl">fact_check</span>
+                        </div>
+                        <h4 class="font-label-md text-label-md text-on-surface mb-1">Nessun audit presente</h4>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">Clicca "Run Audit" per iniziare.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==============================
+             VIEW USERS
+        =============================== -->
+        <div id="view-users" class="flex flex-col gap-6 w-full hidden">
+            <h2 class="font-headline-xl-mobile md:font-headline-xl text-on-surface">Gestione Utenti</h2>
+            <p class="text-on-surface-variant font-body-lg">Amministra lo staff e i permessi della tua organizzazione.</p>
+            
+            <div id="usersSection" class="glass-card rounded-xl p-lg flex flex-col mt-4">
+                <div class="overflow-x-auto mb-8">
+                    <table id="usersTable" class="w-full text-left">
+                        <thead>
+                            <tr>
+                                <th>Nome Completo</th>
+                                <th>Email</th>
+                                <th>Azienda</th>
+                                <th>P. IVA</th>
+                                <th>Ruolo</th>
+                                <th class="text-right">Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersList" class="divide-y divide-white/5">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4 id="addUserTitle" class="font-headline-sm text-on-surface mb-4">Aggiungi nuovo operatore</h4>
+                <form id="createUserForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex flex-col gap-1.5">
+                        <label class="font-label-sm text-on-surface-variant">Nome Completo</label>
+                        <input type="text" id="newUserName" class="w-full bg-surface-container border border-white/10 rounded-full px-4 py-2 text-on-surface focus:outline-none focus:border-primary" placeholder="Mario Rossi" required>
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label class="font-label-sm text-on-surface-variant">Email</label>
+                        <input type="email" id="newUserEmail" class="w-full bg-surface-container border border-white/10 rounded-full px-4 py-2 text-on-surface focus:outline-none focus:border-primary" placeholder="mario@azienda.com" required>
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label class="font-label-sm text-on-surface-variant">Password Temporanea</label>
+                        <input type="password" id="newUserPassword" class="w-full bg-surface-container border border-white/10 rounded-full px-4 py-2 text-on-surface focus:outline-none focus:border-primary" placeholder="Min. 8 caratteri" required minlength="8">
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label class="font-label-sm text-on-surface-variant">Ruolo Accesso</label>
+                        <select id="newUserRole" required class="w-full bg-surface-container border border-white/10 rounded-full px-4 py-2 text-on-surface focus:outline-none focus:border-primary">
+                            <option value="User" selected>User (Operativo)</option>
+                            <option value="Manager">Manager</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2 mt-2">
+                        <button type="submit" class="bg-primary text-on-primary w-full md:w-auto px-8 py-2 rounded-full font-label-md flex justify-center items-center gap-2 hover:bg-primary-container transition-colors">
+                            Aggiungi Utente <span class="material-symbols-outlined text-sm">person_add</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ==============================
+             VIEW DOCUMENTI
+        =============================== -->
+        <div id="view-documenti" class="flex flex-col gap-6 w-full hidden">
+            <h2 class="font-headline-xl-mobile md:font-headline-xl text-on-surface">Area Documenti</h2>
+            <p class="text-on-surface-variant font-body-lg">Archivio storico degli Audit completati.</p>
+            
+            <div class="glass-card rounded-xl p-lg flex flex-col mt-4">
+                <div id="documentiContainer" class="flex flex-col gap-4">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Bottom Nav Spacer -->
+        <div class="h-24 md:hidden"></div>
+    </main>
+
+    <!-- Mobile Bottom Nav Bar -->
+    <nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container text-primary font-label-sm text-label-sm h-16 z-40 flex justify-around items-center px-sm shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+        <a onclick="switchView('dashboard')" class="flex flex-col items-center gap-xs text-primary transition-transform active:scale-95 cursor-pointer">
+            <span class="material-symbols-outlined bg-primary-container text-on-primary-container rounded-full px-4 py-1" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+            <span>Dashboard</span>
+        </a>
+        <a onclick="switchView('users')" class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-transform active:scale-95 cursor-pointer" id="mob-tab-users" style="display:none;">
+            <span class="material-symbols-outlined px-4 py-1">group</span>
+            <span>Utenti</span>
+        </a>
+        <a onclick="switchView('documenti')" class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-transform active:scale-95 cursor-pointer">
+            <span class="material-symbols-outlined px-4 py-1">folder</span>
+            <span>Documenti</span>
+        </a>
+    </nav>
+
+    <!-- Script Application Logic -->
+    <script src="/private/script/private_script.js?v=2"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => initDashboard());</script>
+</body>
+</html>

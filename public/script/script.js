@@ -83,8 +83,8 @@ if (loginForm) {
             const result = await res.json();
 
             if (result.success) {
-                // Dopo il login, redirect alla dashboard (area privata)
-                window.location.href = '/private/dashboard.html';
+                // Dopo il login, redirect alla dashboard (passata dal server in base al ruolo)
+                window.location.href = result.redirectUrl || '/private/dashboard_manager.html';
             } else {
                 showAlert('loginAlert', result.message, false);
             }

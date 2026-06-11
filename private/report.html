@@ -1,139 +1,204 @@
 <!DOCTYPE html>
-<html class="dark" lang="it">
+<html class="dark" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report Audit — Cyber Audit Pro</title>
-    <!-- Tailwind CDN & Fonts -->
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>CyberAudit Pro - Final Report</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Geist:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <!-- Tailwind Config & Custom CSS -->
-    <script src="/script/tailwind-setup.js"></script>
-    <link rel="stylesheet" href="/style/style.css">
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#e2bfb0",
+                        "on-secondary": "#303030",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-variant": "#353534",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#351000",
+                        "secondary-fixed": "#e4e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "primary": "#ffb693",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "tertiary-fixed": "#e5e2e1",
+                        "error": "#ffb4ab",
+                        "tertiary": "#c8c6c5",
+                        "outline": "#a98a7d",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "outline-variant": "#5a4136",
+                        "surface-dim": "#131313",
+                        "on-tertiary": "#313030",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-primary": "#561f00",
+                        "background": "#131313",
+                        "on-surface": "#e5e2e1",
+                        "secondary-container": "#474746",
+                        "secondary": "#c8c6c5",
+                        "inverse-primary": "#a04100",
+                        "on-secondary-container": "#b6b5b4",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary-container": "#9a9898",
+                        "on-background": "#e5e2e1",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "surface-bright": "#3a3939",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#ffdbcc",
+                        "inverse-on-surface": "#313030",
+                        "surface-tint": "#ffb693",
+                        "on-primary-container": "#572000",
+                        "surface": "#131313",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-tertiary-container": "#313131",
+                        "primary-container": "#ff6b00",
+                        "primary-fixed-dim": "#ffb693",
+                        "surface-container-highest": "#353534",
+                        "surface-container": "#201f1f",
+                        "on-tertiary-fixed-variant": "#474746"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding-desktop": "32px",
+                        "gutter": "24px",
+                        "container-padding-mobile": "20px",
+                        "md": "24px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "xl": "64px",
+                        "lg": "40px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Plus Jakarta Sans"],
+                        "headline-xl-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0F0F0F;
+            color: #e5e2e1;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #353534; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a98a7d; }
+    </style>
 </head>
-<body class="bg-surface-container-lowest text-on-surface font-body-md antialiased overflow-x-hidden selection:bg-primary-container selection:text-white flex min-h-screen">
+<body class="antialiased min-h-screen flex flex-col font-body-md text-body-md">
 
-    <!-- Shared Component: SideNavBar -->
-    <aside class="hidden md:flex fixed left-0 top-0 h-full w-sidebar-width bg-surface-container-low border-r border-white/10 flex-col py-stack-lg z-50">
-        <!-- Header -->
-        <div class="px-6 mb-stack-lg flex items-center gap-4">
-            <div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">shield</span>
-            </div>
-            <div>
-                <h1 class="font-headline-md text-[20px] font-black text-on-surface leading-tight tracking-tight">Cyber Audit</h1>
-            </div>
+    <!-- TopNavBar -->
+    <nav class="bg-background/80 backdrop-blur-xl w-full h-16 fixed top-0 left-0 bg-surface-variant/10 shadow-sm flex justify-between items-center px-lg w-full z-40">
+        <div class="flex items-center gap-md">
+            <button onclick="window.location.href='/private/dashboard_manager.html'" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-surface-container-high transition-colors text-on-surface mr-2">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <span class="font-headline-md text-headline-md font-bold text-primary">CyberAudit Pro</span>
         </div>
-
-        <!-- Navigation -->
-        <nav class="flex-1 px-2 flex flex-col gap-1">
-            <a class="text-on-surface-variant flex items-center gap-stack-md px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all rounded" href="/private/dashboard.html">
-                <span class="material-symbols-outlined text-xl">arrow_back</span>
-                <span class="font-label-md text-label-md">Torna alla Dashboard</span>
-            </a>
-            <!-- ACTIVE TAB: Reports -->
-            <a class="bg-primary/10 text-primary border-l-[3px] border-primary flex items-center gap-stack-md px-4 py-3 translate-x-1 duration-150 rounded-r" href="#">
-                <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">assessment</span>
-                <span class="font-label-md text-label-md">Report Corrente</span>
-            </a>
-        </nav>
-
-        <div class="px-4 mt-auto flex flex-col gap-4">
-            <button onclick="window.print()" class="w-full bg-surface-variant border border-white/10 text-on-surface font-label-md text-label-md py-3 px-4 flex items-center justify-center gap-2 rounded hover:border-primary-container hover:text-primary-container transition-colors shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]">
-                <span class="material-symbols-outlined text-lg">print</span>
-                Stampa PDF
+        <div class="flex items-center gap-md">
+            <button class="hidden lg:flex items-center justify-center bg-primary-container text-on-primary-container font-label-md text-label-md px-md py-xs rounded-full hover:bg-primary-fixed transition-colors">
+                Run New Audit
             </button>
         </div>
-    </aside>
+    </nav>
+
+    <!-- Loader -->
+    <div id="reportLoader" class="flex-1 flex flex-col items-center justify-center mt-24 h-[50vh]">
+        <span class="material-symbols-outlined text-primary animate-spin text-5xl" style="animation: spin 1s linear infinite;">sync</span>
+        <p class="mt-4 text-on-surface-variant font-body-lg text-body-lg">Caricamento report in corso...</p>
+    </div>
 
     <!-- Main Content Area -->
-    <main class="md:ml-sidebar-width flex-1 min-h-screen p-4 md:p-margin-page max-w-container-max relative flex flex-col">
-        <!-- Subtle background glow -->
-        <div class="absolute top-0 right-0 w-1/2 h-[500px] bg-primary-container/5 rounded-full blur-[120px] pointer-events-none"></div>
-
-        <div id="reportLoader" class="text-center flex-1 flex flex-col items-center justify-center" style="padding: 4rem 0;">
-            <span class="material-symbols-outlined text-primary animate-spin text-5xl">sync</span>
-            <p class="mt-4 text-on-surface-variant font-body-lg text-body-lg">Caricamento report in corso...</p>
-        </div>
-
-        <div id="reportContent" class="hidden flex-col gap-8 w-full pb-10">
-            <!-- Page Header -->
-            <header class="flex flex-col md:flex-row md:items-end justify-between gap-4 relative z-10 border-b border-white/10 pb-6">
-                <div>
-                    <p class="font-mono-data text-mono-data text-primary mb-2 flex items-center gap-2 uppercase tracking-widest">
-                        <span class="material-symbols-outlined text-base">verified_user</span>
-                        AUDIT-ID: <span id="reportAuditId">...</span>
-                    </p>
-                    <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold">Report Valutazione Rischi</h1>
-                    <p class="text-on-surface-variant font-body-sm text-body-sm mt-2">Generato il <span id="reportDate" class="text-on-surface font-bold">...</span></p>
-                </div>
-                <button onclick="window.print()" class="md:hidden bg-primary-container text-background font-label-md text-label-md px-6 py-3 rounded hover:bg-primary transition-all flex items-center gap-2 shadow-[2px_2px_0px_#a33e00] hover:shadow-[4px_4px_0px_#a33e00] hover:-translate-y-[2px] active:translate-y-0 active:shadow-none font-bold group w-max">
-                    <span class="material-symbols-outlined text-xl group-hover:animate-bounce">download</span>
-                    Scarica PDF
+    <main id="reportContent" class="hidden flex-grow pt-24 pb-xl px-container-padding-mobile md:px-container-padding-desktop max-w-7xl mx-auto w-full">
+        
+        <!-- Header Section -->
+        <header class="mb-lg flex flex-col md:flex-row md:items-end justify-between gap-md">
+            <div>
+                <h1 class="font-headline-xl-mobile md:font-headline-xl text-on-surface mb-xs">Final Security Report</h1>
+                <p class="text-on-surface-variant font-body-md text-body-md">
+                    Audit completato il <span id="reportDate" class="font-bold text-on-surface">...</span>
+                    (ID: <span id="reportAuditId">...</span>)
+                </p>
+            </div>
+            <div class="flex gap-sm">
+                <button onclick="window.print()" class="bg-surface-container-high text-on-surface px-md py-sm rounded-full font-label-md text-label-md flex items-center gap-xs hover:bg-surface-variant transition-colors border border-outline-variant/20 shadow-[0_4px_24px_rgba(0,0,0,0.2)]">
+                    <span class="material-symbols-outlined text-[18px]">download</span>
+                    Export PDF
                 </button>
-            </header>
+            </div>
+        </header>
 
-            <!-- Executive Summary (Score) -->
-            <section class="bg-surface/60 backdrop-blur-[12px] border-t border-l border-white/10 rounded p-6 md:p-8 relative overflow-hidden group hover:bg-surface/80 transition-colors">
-                <!-- Level 2 Glass card accent -->
-                <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-secondary-container"></div>
-                <div class="flex items-start gap-4 mb-6">
-                    <span class="material-symbols-outlined text-secondary-container text-3xl">insights</span>
-                    <h2 class="font-headline-md text-headline-md text-on-surface">Punteggio Cyber Security</h2>
-                </div>
-                
-                <div class="flex flex-col md:flex-row items-center gap-8">
-                    <!-- Circle Score Container -->
-                    <div id="scoreCircle" class="w-32 h-32 rounded-full border-4 flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
-                        <span id="scoreValue" class="text-4xl font-bold font-mono-data tracking-tight text-on-surface">100</span>
-                        <span class="text-xs uppercase font-bold text-on-surface-variant mt-1">su 100</span>
-                    </div>
-                    
-                    <p id="scoreMessage" class="font-body-lg text-body-lg text-inverse-surface max-w-2xl leading-relaxed">
+        <!-- Executive Summary - Extreme Radius Card -->
+        <section class="bg-surface-container-high/60 backdrop-blur-2xl rounded-xl p-lg border border-outline-variant/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] mb-xl relative overflow-hidden">
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-error/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 flex flex-col md:flex-row gap-lg">
+                <div class="flex-1 flex flex-col justify-center">
+                    <h2 class="font-headline-md text-headline-md text-on-surface mb-md">Executive Summary</h2>
+                    <p id="scoreMessage" class="text-on-surface-variant font-body-lg text-body-lg mb-md leading-relaxed">
                         ...
                     </p>
                 </div>
-            </section>
-
-            <!-- Potential Sanctions (GDPR Risks) -->
-            <section>
-                <h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-4 flex items-center gap-2">
-                    <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-                    Rischi Sanzionatori GDPR
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter" id="gdprList">
-                    <!-- populated via JS -->
+                
+                <!-- Overall Score -->
+                <div class="w-full md:w-64 flex flex-col items-center justify-center bg-surface-container rounded-lg p-md border border-outline-variant/10 shrink-0">
+                    <span class="text-on-surface-variant font-label-md text-label-md mb-sm">Risk Score</span>
+                    <div id="scoreCircle" class="w-32 h-32 rounded-full border-4 flex flex-col items-center justify-center transition-all duration-700 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                        <span id="scoreValue" class="text-4xl font-bold tracking-tight text-on-surface">100</span>
+                        <span class="text-xs uppercase font-bold text-on-surface-variant mt-1">/100</span>
+                    </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Detailed Vulnerability List -->
-            <section>
-                <h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-4 flex items-center gap-2">
-                    <span class="w-2 h-2 bg-error rounded-full"></span>
-                    Vulnerabilità Rilevate
-                </h3>
-                <div class="bg-surface/60 backdrop-blur-[12px] border-t border-l border-white/10 rounded overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-surface-container/50 border-b border-white/10">
-                                <th class="p-4 font-label-sm text-label-sm text-on-surface-variant uppercase w-16">#</th>
-                                <th class="p-4 font-label-sm text-label-sm text-on-surface-variant uppercase">Descrizione Vulnerabilità</th>
-                                <th class="p-4 font-label-sm text-label-sm text-on-surface-variant uppercase">Stato</th>
-                            </tr>
-                        </thead>
-                        <tbody class="font-body-sm text-on-surface divide-y divide-white/5" id="vulnList">
-                            <!-- populated via JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+        <!-- Bento Grid for Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-md mb-xl">
             
-            <footer class="mt-8 text-center pt-8 border-t border-white/5">
-                <p class="font-body-sm text-body-sm text-on-surface-variant">© 2026 Cyber Audit Pro — Documento generato automaticamente. Classificazione: CONFIDENZIALE.</p>
-            </footer>
+            <!-- Top Vulnerabilities -->
+            <div class="bg-surface-container-high/40 rounded-xl p-md border border-outline-variant/10 shadow-sm flex flex-col">
+                <h3 class="font-headline-sm text-headline-md text-on-surface mb-md px-sm">Vulnerabilità Rilevate</h3>
+                <div id="vulnList" class="space-y-sm flex-grow">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <!-- GDPR Risks -->
+            <div class="bg-surface-container-high/40 rounded-xl p-md border border-outline-variant/10 shadow-sm flex flex-col">
+                <h3 class="font-headline-sm text-headline-md text-on-surface mb-md px-sm">Rischi Sanzionatori GDPR</h3>
+                <div id="gdprList" class="space-y-sm flex-grow">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
         </div>
+
     </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-lowest w-full rounded-t-lg mt-auto flex flex-col items-center gap-md py-lg px-container-padding-desktop border-t border-outline-variant/5">
+        <div class="text-on-surface font-bold font-headline-md text-headline-md">CyberAudit Pro</div>
+        <div class="font-label-sm text-label-sm text-on-surface-variant mt-sm">
+            © 2026 Cyber Audit Pro — Documento generato automaticamente. Classificazione: CONFIDENZIALE.
+        </div>
+    </footer>
 
     <script src="/private/script/private_script.js"></script>
     <script>document.addEventListener('DOMContentLoaded', () => loadReport());</script>

@@ -29,7 +29,7 @@
 
         <!-- Navigation Tabs -->
         <nav class="flex-1 flex flex-col gap-2">
-            <a class="bg-primary/10 text-primary border-l-4 border-primary flex items-center gap-stack-md px-4 py-3 font-label-md text-label-md hover:bg-white/5 transition-all" href="/private/dashboard.html">
+            <a class="bg-primary/10 text-primary border-l-4 border-primary flex items-center gap-stack-md px-4 py-3 font-label-md text-label-md hover:bg-white/5 transition-all" href="/private/dashboard_user.html">
                 <span class="material-symbols-outlined">dashboard</span>
                 Dashboard
             </a>
@@ -90,7 +90,7 @@
             </div>
 
             <!-- Stats Row (Glassmorphism Cards) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter" id="statsGrid">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter" id="statsGrid">
                 
                 <!-- Audit Totali -->
                 <div class="glass-card rounded-[2rem] p-6 border border-white/5 flex flex-col gap-4">
@@ -125,16 +125,6 @@
                     </div>
                 </div>
 
-                <!-- Utenti Staff -->
-                <div class="glass-card rounded-[2rem] p-6 border border-secondary/20 shadow-[0_0_15px_rgba(166,230,255,0.1)] flex flex-col gap-4">
-                    <div class="flex justify-between items-start">
-                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Utenti Staff</span>
-                        <span class="material-symbols-outlined text-secondary">group</span>
-                    </div>
-                    <div class="flex items-end gap-2">
-                        <span class="font-headline-lg text-headline-lg text-secondary" id="statUsers">0</span>
-                    </div>
-                </div>
             </div>
 
             <!-- Audit Section -->
@@ -171,55 +161,7 @@
                 </div>
             </div>
 
-            <!-- Users Section (Manager only) -->
-            <div id="usersSection" class="glass-card rounded-[2rem] p-6 flex flex-col mt-4 hidden">
-                <h3 class="font-headline-md text-headline-md text-on-surface mb-6 border-b border-white/10 pb-4">Gestione Utenti (Staff)</h3>
-                
-                <div class="overflow-x-auto mb-8">
-                    <table id="usersTable" class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="border-b border-white/5">
-                                <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Nome Completo</th>
-                                <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Email</th>
-                                <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Ruolo</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-white/5">
-                            <!-- Populated via JS -->
-                        </tbody>
-                    </table>
-                </div>
-
-                <h4 class="font-headline-sm text-on-surface mb-4">Aggiungi nuovo operatore</h4>
-                <div id="userAlert" class="hidden p-3 mb-4 rounded font-body-sm text-body-sm bg-error-container/20 border border-error-container/50 text-error-container text-center"></div>
-                
-                <form id="createUserForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface-container-highest/30 p-4 rounded border border-white/5">
-                    <div class="flex flex-col gap-1.5">
-                        <label class="font-label-sm text-label-sm text-on-surface-variant">Nome Completo</label>
-                        <input type="text" id="newUserName" class="w-full bg-surface-container border border-white/10 rounded px-3 py-2 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="Mario Rossi" required>
-                    </div>
-                    <div class="flex flex-col gap-1.5">
-                        <label class="font-label-sm text-label-sm text-on-surface-variant">Email</label>
-                        <input type="email" id="newUserEmail" class="w-full bg-surface-container border border-white/10 rounded px-3 py-2 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="mario@azienda.com" required>
-                    </div>
-                    <div class="flex flex-col gap-1.5">
-                        <label class="font-label-sm text-label-sm text-on-surface-variant">Password Temporanea</label>
-                        <input type="password" id="newUserPassword" class="w-full bg-surface-container border border-white/10 rounded px-3 py-2 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="Min. 8 caratteri" required minlength="8">
-                    </div>
-                    <div class="flex flex-col gap-1.5">
-                        <label class="font-label-sm text-label-sm text-on-surface-variant">Ruolo Accesso</label>
-                        <select id="newUserRole" class="w-full bg-surface-container border border-white/10 rounded px-3 py-2 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" required>
-                            <option value="User">User (Operativo)</option>
-                            <option value="Manager">Manager (Amministratore)</option>
-                        </select>
-                    </div>
-                    <div class="md:col-span-2 mt-2">
-                        <button type="submit" class="btn-primary w-full md:w-auto px-8 py-2 rounded-full font-label-md text-label-md flex justify-center items-center gap-2">
-                            Aggiungi Utente <span class="material-symbols-outlined text-sm">person_add</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
+            <!-- Users Section removed for standard user -->
 
         </div>
 

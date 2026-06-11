@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CyberAudit Pro - Audit Assessment</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#e2bfb0",
+                        "on-secondary": "#303030",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-variant": "#353534",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#351000",
+                        "secondary-fixed": "#e4e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "primary": "#ffb693",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "tertiary-fixed": "#e5e2e1",
+                        "error": "#ffb4ab",
+                        "tertiary": "#c8c6c5",
+                        "outline": "#a98a7d",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "outline-variant": "#5a4136",
+                        "surface-dim": "#131313",
+                        "on-tertiary": "#313030",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-primary": "#561f00",
+                        "background": "#131313",
+                        "on-surface": "#e5e2e1",
+                        "secondary-container": "#474746",
+                        "secondary": "#c8c6c5",
+                        "inverse-primary": "#a04100",
+                        "on-secondary-container": "#b6b5b4",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary-container": "#9a9898",
+                        "on-background": "#e5e2e1",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "surface-bright": "#3a3939",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#ffdbcc",
+                        "inverse-on-surface": "#313030",
+                        "surface-tint": "#ffb693",
+                        "on-primary-container": "#572000",
+                        "surface": "#131313",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-tertiary-container": "#313131",
+                        "primary-container": "#ff6b00",
+                        "primary-fixed-dim": "#ffb693",
+                        "surface-container-highest": "#353534",
+                        "surface-container": "#201f1f",
+                        "on-tertiary-fixed-variant": "#474746"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding-desktop": "32px",
+                        "gutter": "24px",
+                        "container-padding-mobile": "20px",
+                        "md": "24px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "xl": "64px",
+                        "lg": "40px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Plus Jakarta Sans"],
+                        "headline-xl-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-xl-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0F0F0F;
+            color: #e5e2e1;
+        }
+        .glass-panel {
+            background: rgba(32, 31, 31, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-shadow {
+            box-shadow: 0 0 24px rgba(255, 107, 0, 0.3);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-md">
+<!-- TopNavBar (Linear/Transactional intent -> suppressed full nav, simplified header for focus) -->
+<header class="w-full h-20 fixed top-0 left-0 bg-background/80 backdrop-blur-xl border-b border-outline-variant/10 z-40 flex justify-between items-center px-container-padding-desktop">
+<div class="flex items-center gap-sm">
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-surface-container-high transition-colors text-on-surface">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<span class="font-headline-md text-headline-md font-bold text-primary">CyberAudit Pro</span>
+</div>
+<div class="flex items-center gap-md">
+<span class="font-label-md text-label-md text-on-surface-variant">Draft saved 2m ago</span>
+<button class="font-label-md text-label-md bg-surface-container text-on-surface px-md py-sm rounded-full hover:bg-surface-container-high transition-colors">Save &amp; Exit</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 mt-20 pt-lg pb-xl px-container-padding-mobile md:px-container-padding-desktop max-w-5xl mx-auto w-full">
+<!-- Header & Progress -->
+<div class="mb-xl flex flex-col items-center text-center">
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-sm">Access Control Audit</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Evaluate the implementation and effectiveness of logical access controls across all enterprise systems.</p>
+<!-- Progress Tracker -->
+<div class="flex items-center gap-sm mt-lg">
+<div class="flex items-center gap-xs">
+<div class="h-2 w-16 bg-primary rounded-full glow-shadow"></div>
+<span class="font-label-sm text-label-sm text-primary ml-xs">Identity</span>
+</div>
+<div class="h-1 w-8 bg-surface-container-highest rounded-full"></div>
+<div class="flex items-center gap-xs opacity-50">
+<div class="h-2 w-16 bg-surface-container-highest rounded-full"></div>
+<span class="font-label-sm text-label-sm text-on-surface ml-xs">Network</span>
+</div>
+<div class="h-1 w-8 bg-surface-container-highest rounded-full"></div>
+<div class="flex items-center gap-xs opacity-50">
+<div class="h-2 w-16 bg-surface-container-highest rounded-full"></div>
+<span class="font-label-sm text-label-sm text-on-surface ml-xs">Physical</span>
+</div>
+</div>
+</div>
+<!-- Question Cards -->
+<div class="space-y-md">
+<!-- Question 1 -->
+<div class="glass-panel rounded-xl p-[32px] flex flex-col md:flex-row gap-lg items-start transition-all hover:border-outline-variant/30">
+<div class="flex-1">
+<div class="flex items-center gap-sm mb-sm">
+<span class="w-8 h-8 rounded-full bg-primary-container/20 text-primary flex items-center justify-center font-label-sm text-label-sm">Q1</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Multi-Factor Authentication (MFA)</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Is MFA enforced for all users, including administrative and privileged accounts, across all cloud and on-premise systems?</p>
+<button class="flex items-center gap-xs text-primary font-label-sm text-label-sm hover:underline">
+<span class="material-symbols-outlined" style="font-size: 16px;">info</span>
+                        View Policy Reference
+                    </button>
+</div>
+<div class="w-full md:w-auto flex flex-col gap-sm shrink-0">
+<label class="flex items-center justify-between p-sm px-md rounded-full border border-primary bg-primary-container/10 cursor-pointer transition-colors group">
+<span class="font-label-md text-label-md text-primary">Yes, fully implemented</span>
+<div class="w-5 h-5 rounded-full border-2 border-primary flex items-center justify-center ml-lg">
+<div class="w-2.5 h-2.5 rounded-full bg-primary"></div>
+</div>
+</label>
+<label class="flex items-center justify-between p-sm px-md rounded-full border border-outline-variant/20 bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors group">
+<span class="font-label-md text-label-md text-on-surface">No, partially implemented</span>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant/50 ml-lg"></div>
+</label>
+<label class="flex items-center justify-between p-sm px-md rounded-full border border-outline-variant/20 bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors group">
+<span class="font-label-md text-label-md text-on-surface">Not Applicable</span>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant/50 ml-lg"></div>
+</label>
+</div>
+</div>
+<!-- Question 2 -->
+<div class="glass-panel rounded-xl p-[32px] flex flex-col md:flex-row gap-lg items-start transition-all hover:border-outline-variant/30">
+<div class="flex-1">
+<div class="flex items-center gap-sm mb-sm">
+<span class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center font-label-sm text-label-sm">Q2</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Principle of Least Privilege</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Are access rights granted strictly on a need-to-know basis, and are regular reviews conducted to revoke unnecessary privileges?</p>
+<div class="mt-sm">
+<textarea class="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg p-md font-body-md text-body-md text-on-surface placeholder-on-surface-variant/50 focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none" placeholder="Add specific findings or evidence notes here..." rows="3"></textarea>
+</div>
+</div>
+<div class="w-full md:w-auto flex flex-col gap-sm shrink-0">
+<label class="flex items-center justify-between p-sm px-md rounded-full border border-outline-variant/20 bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors group">
+<span class="font-label-md text-label-md text-on-surface">Yes, fully implemented</span>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant/50 ml-lg"></div>
+</label>
+<label class="flex items-center justify-between p-sm px-md rounded-full border border-outline-variant/20 bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors group">
+<span class="font-label-md text-label-md text-on-surface">No, partially implemented</span>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant/50 ml-lg"></div>
+</label>
+<label class="flex items-center justify-between p-sm px-md rounded-full border border-outline-variant/20 bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors group">
+<span class="font-label-md text-label-md text-on-surface">Not Applicable</span>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant/50 ml-lg"></div>
+</label>
+</div>
+</div>
+<!-- Question 3 -->
+<div class="glass-panel rounded-xl p-[32px] flex flex-col md:flex-row gap-lg items-start transition-all hover:border-outline-variant/30 opacity-50 pointer-events-none">
+<div class="flex-1">
+<div class="flex items-center gap-sm mb-sm">
+<span class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center font-label-sm text-label-sm">Q3</span>
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-sm">Password Complexity <span class="material-symbols-outlined text-on-surface-variant" style="font-size: 20px;">lock</span></h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Complete previous questions to unlock.</p>
+</div>
+<div class="w-full md:w-auto flex flex-col gap-sm shrink-0">
+<div class="w-[200px] h-10 rounded-full bg-surface-container-low"></div>
+<div class="w-[200px] h-10 rounded-full bg-surface-container-low"></div>
+</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="mt-xl flex justify-between items-center border-t border-outline-variant/10 pt-lg">
+<button class="font-label-md text-label-md text-on-surface-variant px-lg py-sm rounded-full hover:bg-surface-container transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined">arrow_back</span> Back
+            </button>
+<button class="font-label-md text-label-md bg-primary text-on-primary px-xl py-md rounded-full hover:bg-primary-container transition-all glow-shadow flex items-center gap-xs">
+                Next Section <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</main>
+</body></html>

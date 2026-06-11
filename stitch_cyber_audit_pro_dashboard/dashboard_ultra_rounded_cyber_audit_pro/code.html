@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CyberAudit Pro - Mission Control</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#e2bfb0",
+                        "on-secondary": "#303030",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-variant": "#353534",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#351000",
+                        "secondary-fixed": "#e4e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "primary": "#ffb693",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "tertiary-fixed": "#e5e2e1",
+                        "error": "#ffb4ab",
+                        "tertiary": "#c8c6c5",
+                        "outline": "#a98a7d",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "outline-variant": "#5a4136",
+                        "surface-dim": "#131313",
+                        "on-tertiary": "#313030",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-primary": "#561f00",
+                        "background": "#131313",
+                        "on-surface": "#e5e2e1",
+                        "secondary-container": "#474746",
+                        "secondary": "#c8c6c5",
+                        "inverse-primary": "#a04100",
+                        "on-secondary-container": "#b6b5b4",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary-container": "#9a9898",
+                        "on-background": "#e5e2e1",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "surface-bright": "#3a3939",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#ffdbcc",
+                        "inverse-on-surface": "#313030",
+                        "surface-tint": "#ffb693",
+                        "on-primary-container": "#572000",
+                        "surface": "#131313",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-tertiary-container": "#313131",
+                        "primary-container": "#ff6b00",
+                        "primary-fixed-dim": "#ffb693",
+                        "surface-container-highest": "#353534",
+                        "surface-container": "#201f1f",
+                        "on-tertiary-fixed-variant": "#474746"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding-desktop": "32px",
+                        "gutter": "24px",
+                        "container-padding-mobile": "20px",
+                        "md": "24px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "xl": "64px",
+                        "lg": "40px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Plus Jakarta Sans"],
+                        "headline-xl-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-xl-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0F0F0F; /* Deepest layer */
+            color: #e5e2e1;
+        }
+        
+        .glass-card {
+            background-color: rgba(53, 53, 52, 0.4); /* semi-transparent charcoal */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glow-shadow {
+            box-shadow: 0 0 24px rgba(255, 107, 0, 0.3);
+        }
+        
+        /* Smooth scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #474746;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffb693;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased h-screen flex overflow-hidden">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col bg-surface-container dark:bg-surface-container text-primary font-label-md text-label-md fixed left-0 top-0 h-full w-64 rounded-r-lg bg-surface-container border-r border-outline-variant/10 shadow-md py-lg space-y-base z-30">
+<div class="px-lg mb-xl">
+<div class="flex items-center gap-sm mb-md">
+<img alt="Organization Logo" class="w-10 h-10 rounded-full object-cover border-2 border-primary" data-alt="A small, circular abstract tech logo icon featuring a stylized shield or lock symbol in glowing orange against a dark background, representing cybersecurity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFi93RIcdTeUMcAvHuPnGmEEUK-GH_X8wao5U6PABxEYzpldZuyr0_bXn3SfQa36VO2tZpR2LbZ01JQ2IgMsIfx_qo0EZd8BjrwmNPPAFvA2iIboYIy5L-n3fW5yGr8wXjbY3KrX8KHwfCu8ruLvh3P3V-mWxY6EDhl0BEIdtcB-SuqzYI7LMeaIAyhZIf1qotdrMoTIv3KfaT0sr6NWZ5oRenSl0oGSWUbeTaHWj0N1tuT_WsIXcbcreZt9tgdoqhRqeORSiAALk"/>
+<div>
+<h1 class="font-headline-sm text-headline-sm text-primary font-bold">CyberAudit Pro</h1>
+<p class="text-on-surface-variant text-label-sm">Enterprise Tier</p>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-xs space-y-2">
+<a class="flex items-center gap-sm bg-primary-container text-on-primary-container rounded-full px-md py-sm mx-sm transition-transform active:scale-98" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant px-md py-sm mx-sm hover:bg-secondary-container/50 rounded-full transition-transform active:scale-98" href="#">
+<span class="material-symbols-outlined">security</span>
+<span>Vulnerabilities</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant px-md py-sm mx-sm hover:bg-secondary-container/50 rounded-full transition-transform active:scale-98" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span>Network Map</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant px-md py-sm mx-sm hover:bg-secondary-container/50 rounded-full transition-transform active:scale-98" href="#">
+<span class="material-symbols-outlined">history</span>
+<span>Incident Log</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant px-md py-sm mx-sm hover:bg-secondary-container/50 rounded-full transition-transform active:scale-98" href="#">
+<span class="material-symbols-outlined">tune</span>
+<span>Settings</span>
+</a>
+</div>
+<div class="px-md mt-auto pt-md space-y-sm border-t border-outline-variant/10 mx-md">
+<button class="w-full bg-surface-variant text-primary font-bold rounded-full py-sm hover:bg-secondary-container/50 transition-colors">Upgrade Plan</button>
+<a class="flex items-center gap-sm text-on-surface-variant px-md py-sm hover:bg-secondary-container/50 rounded-full transition-transform active:scale-98" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</nav>
+<!-- TopNavBar (Mobile) -->
+<header class="md:hidden bg-background/80 dark:bg-background/80 backdrop-blur-xl text-primary font-body-md text-body-md w-full h-16 fixed top-0 left-0 bg-surface-variant/10 border-b border-outline-variant/10 shadow-sm flex justify-between items-center px-lg w-full z-40">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">CyberAudit Pro</h1>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all active:scale-95 duration-200 p-sm">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-primary object-cover" data-alt="A headshot of a professional individual looking confidently at the camera, set against a neutral dark background, lit softly to highlight features without harsh shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWIHuG9ujXxCB9Rc5BGoij80grd9o-BjKqEyaUa5qS43cgAtdWQWvvBkNyjerkJjDm9MmxA9fe-m42FJGyReVg2sygNEZgUFUfw8YGXCmdJdAgS66OwTHq8V0k87NH2cvJmfseBd0M7sSFcJKn35y8vlwjrcuCGnue18xS4afzt20obO_w-niJ0Z4YZhyejAY6ydGGYK8BGvDq_liqFAIE7fVPkElriOOBXyOuEWRLuNQ1sktoetcndFf1LuYj2fW6OylqPj_zZm0"/>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 mt-16 md:mt-0 p-container-padding-mobile md:p-container-padding-desktop overflow-y-auto w-full relative">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-xl gap-md">
+<div>
+<h2 class="font-headline-xl-mobile md:font-headline-xl text-on-surface">Mission Control</h2>
+<p class="text-on-surface-variant font-body-lg">Real-time threat monitoring and network status.</p>
+</div>
+<div class="flex gap-sm">
+<button class="bg-surface-container text-on-surface px-lg py-sm rounded-full border-2 border-outline-variant hover:bg-surface-container-high transition-colors font-label-md">Support</button>
+<button class="bg-gradient-to-r from-primary-container to-primary text-on-primary-container px-lg py-sm rounded-full glow-shadow hover:opacity-90 transition-opacity font-bold font-label-md flex items-center gap-xs">
+<span class="material-symbols-outlined">security</span> Run Audit
+                </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-4 md:grid-cols-12 gap-gutter">
+<!-- Overall Health Score (Large Card) -->
+<div class="col-span-4 md:col-span-8 glass-card rounded-xl p-lg flex flex-col justify-between relative overflow-hidden group">
+<!-- Background decorative element -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-primary-container/10 rounded-full blur-3xl group-hover:bg-primary-container/20 transition-all duration-700"></div>
+<div class="flex justify-between items-start relative z-10 mb-xl">
+<div>
+<h3 class="font-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary p-xs bg-primary/10 rounded-full">health_and_safety</span>
+                            System Health
+                        </h3>
+<p class="text-on-surface-variant mt-xs">Current network resilience index</p>
+</div>
+<div class="bg-surface-container px-md py-sm rounded-full border border-outline-variant/30 flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-emerald-400 glow-shadow" style="box-shadow: 0 0 10px rgba(52, 211, 153, 0.5);"></span>
+<span class="font-label-md text-on-surface">Live Monitoring</span>
+</div>
+</div>
+<div class="relative z-10 flex flex-col md:flex-row items-end justify-between gap-lg">
+<div class="flex items-baseline gap-sm">
+<span class="text-6xl md:text-8xl font-bold text-on-surface tracking-tighter">92</span>
+<span class="font-headline-lg text-primary">/100</span>
+</div>
+<div class="w-full md:w-1/2 space-y-md">
+<div>
+<div class="flex justify-between font-label-sm mb-xs">
+<span class="text-on-surface-variant">Firewall Integrity</span>
+<span class="text-primary">98%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-3">
+<div class="bg-primary h-3 rounded-full glow-shadow" style="width: 98%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm mb-xs">
+<span class="text-on-surface-variant">Endpoint Security</span>
+<span class="text-primary">85%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-3">
+<div class="bg-primary h-3 rounded-full glow-shadow" style="width: 85%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Threats (Vertical Card) -->
+<div class="col-span-4 md:col-span-4 glass-card rounded-xl p-lg flex flex-col relative">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-error p-xs bg-error/10 rounded-full">warning</span>
+                        Threats
+                    </h3>
+<span class="bg-error-container text-on-error font-bold px-sm py-xs rounded-full text-xs">3 Active</span>
+</div>
+<div class="flex-1 flex items-center justify-center py-xl">
+<div class="relative w-32 h-32 flex items-center justify-center">
+<!-- Abstract radar/pulse effect -->
+<div class="absolute inset-0 border-2 border-error/20 rounded-full animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
+<div class="absolute inset-4 border-2 border-error/40 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
+<div class="bg-error-container text-on-error w-16 h-16 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(147,0,10,0.5)] z-10">
+<span class="material-symbols-outlined text-3xl">radar</span>
+</div>
+</div>
+</div>
+<div class="space-y-sm mt-auto">
+<div class="bg-surface-container p-sm rounded-full flex items-center gap-md hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="w-2 h-2 rounded-full bg-error ml-sm"></div>
+<div class="flex-1 truncate">
+<p class="font-label-sm text-on-surface truncate">Unauthorized Access Attempt</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-sm">chevron_right</span>
+</div>
+<div class="bg-surface-container p-sm rounded-full flex items-center gap-md hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="w-2 h-2 rounded-full bg-primary ml-sm"></div>
+<div class="flex-1 truncate">
+<p class="font-label-sm text-on-surface truncate">Malware Signature Detected</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-sm">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Network Traffic (Wide Graph Area) -->
+<div class="col-span-4 md:col-span-12 glass-card rounded-xl p-lg mt-md">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-tertiary p-xs bg-tertiary/10 rounded-full">ssid_chart</span>
+                        Network Traffic
+                    </h3>
+<div class="flex gap-xs">
+<button class="px-sm py-xs bg-surface-container rounded-full text-label-sm text-on-surface-variant hover:text-primary transition-colors">1H</button>
+<button class="px-sm py-xs bg-primary-container text-on-primary-container rounded-full text-label-sm font-bold">24H</button>
+<button class="px-sm py-xs bg-surface-container rounded-full text-label-sm text-on-surface-variant hover:text-primary transition-colors">7D</button>
+</div>
+</div>
+<!-- Simulated Graph Area -->
+<div class="h-48 w-full relative flex items-end justify-between gap-1 pb-sm border-b border-surface-container">
+<!-- Graph bars -->
+<div class="w-full bg-surface-container rounded-t-full h-[20%] hover:bg-primary/50 transition-colors group relative"></div>
+<div class="w-full bg-surface-container rounded-t-full h-[40%] hover:bg-primary/50 transition-colors"></div>
+<div class="w-full bg-surface-container rounded-t-full h-[30%] hover:bg-primary/50 transition-colors"></div>
+<div class="w-full bg-primary/80 rounded-t-full h-[70%] glow-shadow relative">
+<div class="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-surface-container-high text-on-surface px-sm py-xs rounded-full text-xs hidden group-hover:block whitespace-nowrap">Peak</div>
+</div>
+<div class="w-full bg-surface-container rounded-t-full h-[50%] hover:bg-primary/50 transition-colors"></div>
+<div class="w-full bg-surface-container rounded-t-full h-[80%] hover:bg-primary/50 transition-colors"></div>
+<div class="w-full bg-surface-container rounded-t-full h-[45%] hover:bg-primary/50 transition-colors"></div>
+<div class="w-full bg-surface-container rounded-t-full h-[60%] hover:bg-primary/50 transition-colors"></div>
+<div class="w-full bg-surface-container rounded-t-full h-[35%] hover:bg-primary/50 transition-colors"></div>
+<div class="w-full bg-surface-container rounded-t-full h-[55%] hover:bg-primary/50 transition-colors"></div>
+<div class="w-full bg-surface-container rounded-t-full h-[25%] hover:bg-primary/50 transition-colors"></div>
+<div class="w-full bg-surface-container rounded-t-full h-[40%] hover:bg-primary/50 transition-colors"></div>
+</div>
+<div class="flex justify-between mt-sm text-label-sm text-on-surface-variant px-sm">
+<span>00:00</span>
+<span>06:00</span>
+<span>12:00</span>
+<span>18:00</span>
+<span>Now</span>
+</div>
+</div>
+<!-- Recent Scans List -->
+<div class="col-span-4 md:col-span-6 glass-card rounded-xl p-lg mt-md">
+<h3 class="font-headline-md text-on-surface mb-md">Recent Scans</h3>
+<div class="space-y-sm">
+<!-- List Item Capsule -->
+<div class="bg-surface-container p-sm px-md rounded-full flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">policy</span>
+<div>
+<p class="font-label-md text-on-surface">Compliance Audit</p>
+<p class="text-xs text-on-surface-variant">Completed 10 mins ago</p>
+</div>
+</div>
+<span class="bg-primary/20 text-primary px-sm py-xs rounded-full text-xs font-bold">Passed</span>
+</div>
+<div class="bg-surface-container p-sm px-md rounded-full flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-tertiary">memory</span>
+<div>
+<p class="font-label-md text-on-surface">Server Node Alpha</p>
+<p class="text-xs text-on-surface-variant">Completed 1 hr ago</p>
+</div>
+</div>
+<span class="bg-tertiary/20 text-tertiary px-sm py-xs rounded-full text-xs font-bold">Clear</span>
+</div>
+<div class="bg-surface-container p-sm px-md rounded-full flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-error">dns</span>
+<div>
+<p class="font-label-md text-on-surface">Database Integrity</p>
+<p class="text-xs text-on-surface-variant">Failed 2 hrs ago</p>
+</div>
+</div>
+<span class="bg-error/20 text-error px-sm py-xs rounded-full text-xs font-bold flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">warning</span> Action Req</span>
+</div>
+</div>
+</div>
+<!-- Quick Actions Bento -->
+<div class="col-span-4 md:col-span-6 glass-card rounded-xl p-lg mt-md flex flex-col">
+<h3 class="font-headline-md text-on-surface mb-md">Quick Actions</h3>
+<div class="grid grid-cols-2 gap-sm flex-1">
+<button class="bg-surface-container hover:bg-surface-container-high rounded-[2rem] p-md flex flex-col items-center justify-center gap-sm transition-all active:scale-95 border border-outline-variant/10">
+<span class="material-symbols-outlined text-3xl text-primary">add_circle</span>
+<span class="font-label-md text-on-surface">New Policy</span>
+</button>
+<button class="bg-surface-container hover:bg-surface-container-high rounded-[2rem] p-md flex flex-col items-center justify-center gap-sm transition-all active:scale-95 border border-outline-variant/10">
+<span class="material-symbols-outlined text-3xl text-tertiary">group_add</span>
+<span class="font-label-md text-on-surface">Add User</span>
+</button>
+<button class="bg-surface-container hover:bg-surface-container-high rounded-[2rem] p-md flex flex-col items-center justify-center gap-sm transition-all active:scale-95 border border-outline-variant/10">
+<span class="material-symbols-outlined text-3xl text-secondary">file_download</span>
+<span class="font-label-md text-on-surface">Export Log</span>
+</button>
+<button class="bg-surface-container hover:bg-surface-container-high rounded-[2rem] p-md flex flex-col items-center justify-center gap-sm transition-all active:scale-95 border border-outline-variant/10">
+<span class="material-symbols-outlined text-3xl text-on-surface-variant">settings_suggest</span>
+<span class="font-label-md text-on-surface">Auto-Fix</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Mobile Bottom Nav Spacer -->
+<div class="h-24 md:hidden"></div>
+</main>
+<!-- Mobile Bottom Nav Bar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container dark:bg-surface-container text-primary font-label-sm text-label-sm h-16 bg-surface-container z-40 flex justify-around items-center px-sm pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center gap-xs text-primary transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined bg-primary-container text-on-primary-container rounded-full px-4 py-1" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined px-4 py-1">security</span>
+<span>Vulns</span>
+</a>
+<a class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined px-4 py-1">hub</span>
+<span>Network</span>
+</a>
+<a class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined px-4 py-1">history</span>
+<span>Logs</span>
+</a>
+</nav>
+</body></html>

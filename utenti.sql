@@ -80,4 +80,8 @@ INSERT INTO checklist (sezione, domanda, peso_rischio) VALUES
 ('GDPR', 'Esistono procedure documentate per la gestione delle richieste di esercizio dei diritti degli interessati (accesso, cancellazione, portabilità)?', 3),
 ('GDPR', 'È stata effettuata una Valutazione d''Impatto (DPIA) per i trattamenti ad alto rischio?', 4),
 ('GDPR', 'Esiste una procedura di notifica delle violazioni dei dati personali (Data Breach) entro 72 ore al Garante?', 5),
-('GDPR', 'I contratti con i responsabili del trattamento (fornitori terzi) contengono le clausole previste dall''Art. 28?', 3);
+('GDPR', 'I contratti con i responsabili del trattamento (fornitori terzi) contengono le clausole previste dall\\'Art. 28?', 3);
+
+-- Inserimento Account Manager: Andrea Cova
+INSERT INTO aziende (nome_azienda, partita_iva) VALUES ('Azienda Andrea', '99999999999');
+INSERT INTO utenti (tenant_id, ruolo_id, nome, email, password_hash) VALUES (LAST_INSERT_ID(), 2, 'Andrea Cova', 'andrea.cova@example.com', '06f84548db44af40d52788768652b79315e397b3e5bff22a6edac795e2a86395');

@@ -32,20 +32,20 @@
             </div>
 
             <!-- Div utilizzato da script.js per mostrare errori -->
-            <div id="loginAlert" class="hidden p-3 rounded font-body-sm text-body-sm bg-error-container/20 border border-error-container/50 text-error-container text-center"></div>
+            <div id="loginAlert" class="hidden p-3 rounded-xl font-body-sm text-body-sm bg-error-container/20 border border-error-container/50 text-error-container text-center"></div>
 
             <form id="loginForm" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1.5">
                     <label for="loginEmail" class="font-label-md text-label-md text-on-surface-variant">Email Lavorativa</label>
-                    <input type="email" id="loginEmail" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="operator@azienda.com" required>
+                    <input type="email" id="loginEmail" class="w-full bg-surface-container border border-white/10 rounded-full px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="operator@azienda.com" required>
                 </div>
                 
                 <div class="flex flex-col gap-1.5">
                     <label for="loginPassword" class="font-label-md text-label-md text-on-surface-variant">Password</label>
-                    <input type="password" id="loginPassword" class="w-full bg-surface-container border border-white/10 rounded px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="••••••••" required>
+                    <input type="password" id="loginPassword" class="w-full bg-surface-container border border-white/10 rounded-full px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all font-body-sm" placeholder="••••••••" required>
                 </div>
 
-                <button type="submit" class="btn-primary w-full py-3 rounded mt-2 font-label-md text-label-md flex justify-center items-center gap-2">
+                <button type="submit" class="btn-primary w-full py-3 rounded-full mt-2 font-label-md text-label-md flex justify-center items-center gap-2">
                     <span class="btn-text">Accedi</span>
                     <span class="material-symbols-outlined text-sm hidden" id="loginLoader" style="animation: spin 1s linear infinite;">sync</span>
                 </button>
