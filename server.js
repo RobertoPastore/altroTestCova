@@ -369,7 +369,7 @@ app.get('/api/audit', async (req, res, next) => {
     try {
         let query = 'SELECT a.id, a.data_inizio, a.stato, u.nome as creato_da_nome, az.nome_azienda FROM audit a JOIN utenti u ON a.creato_da = u.id JOIN aziende az ON a.tenant_id = az.id';
         let params = [];
-        if (req.user.ruolo_id !== 1 && req.user.ruolo_id !== 2) {
+        if (req.user.ruolo_id !== 1 && req.user.ruolo_id !== 2 && req.user.ruolo_id !== 4) {
             query += ' WHERE a.tenant_id = ?';
             params.push(req.user.tenant_id);
         }
@@ -380,51 +380,38 @@ app.get('/api/audit', async (req, res, next) => {
 });
 
 // PUT Audit
-app.put('/api/audit/:id', authorizeRole([2, 3]), async (req, res, next) => {
+app.put('/api/audit/:id', authorizeRole([1, 2, 4]), async (req, res, next) => {
     const audit_id = req.params.id;
     const { stato } = req.body;
     try {
         const [auditRows] = await pool.promise().execute('SELECT tenant_id FROM audit WHERE id = ?', [audit_id]);
         if (auditRows.length === 0) return res.status(404).json({ success: false, message: 'Audit non trovato' });
         
-        // Se l'utente non è né Admin (1) né Manager (2) ed è in un tenant diverso, blocchiamo
-        if (req.user.ruolo_id !== 1 && req.user.ruolo_id !== 2 && auditRows[0].tenant_id !== req.user.tenant_id) {
-            return res.status(403).json({ success: false, message: 'Accesso negato all audit' });
-        }
-
+        // Admin e Dio Supremo hanno accesso globale, nessun blocco tenant
         await pool.promise().execute('UPDATE audit SET stato = ? WHERE id = ?', [stato, audit_id]);
         res.json({ success: true, message: 'Audit aggiornato con successo' });
     } catch (err) { next(err); }
 });
 
 // DELETE Audit
-app.delete('/api/audit/:id', async (req, res, next) => {
+app.delete('/api/audit/:id', authorizeRole([1, 2, 4]), async (req, res, next) => {
     const audit_id = req.params.id;
     try {
         const [auditRows] = await pool.promise().execute('SELECT tenant_id, stato FROM audit WHERE id = ?', [audit_id]);
         if (auditRows.length === 0) return res.status(404).json({ success: false, message: 'Audit non trovato' });
         
-        if (req.user.ruolo_id !== 1 && req.user.ruolo_id !== 2) {
-            // Regole per User (3)
-            if (auditRows[0].tenant_id !== req.user.tenant_id) return res.status(403).json({ success: false, message: 'Accesso negato all audit' });
-            if (auditRows[0].stato !== 'In corso') return res.status(403).json({ success: false, message: 'Non puoi eliminare un audit già completato' });
-        }
-
         await pool.promise().execute('DELETE FROM audit WHERE id = ?', [audit_id]);
         res.json({ success: true, message: 'Audit eliminato con successo' });
     } catch (err) { next(err); }
 });
 
 // POST Report
-app.post('/api/report/:audit_id', async (req, res, next) => {
+app.post('/api/report/:audit_id', authorizeRole([1, 2, 4]), async (req, res, next) => {
     const audit_id = req.params.audit_id;
     const { punteggio_cyber_security, vulnerabilita_rilevate, rischi_sanzionatori_gdpr } = req.body;
     try {
         const [auditRows] = await pool.promise().execute('SELECT tenant_id, stato FROM audit WHERE id = ?', [audit_id]);
         if (auditRows.length === 0) return res.status(404).json({ success: false, message: 'Audit non trovato' });
-        if (req.user.ruolo_id !== 1 && req.user.ruolo_id !== 2 && auditRows[0].tenant_id !== req.user.tenant_id) {
-            return res.status(403).json({ success: false, message: 'Accesso negato' });
-        }
 
         const insertQuery = 'INSERT INTO report (audit_id, punteggio_cyber_security, vulnerabilita_rilevate, rischi_sanzionatori_gdpr) VALUES (?, ?, ?, ?)';
         await pool.promise().execute(insertQuery, [audit_id, punteggio_cyber_security, JSON.stringify(vulnerabilita_rilevate), JSON.stringify(rischi_sanzionatori_gdpr)]);
@@ -439,9 +426,9 @@ app.get('/api/report/:audit_id', async (req, res, next) => {
         const query = `
             SELECT r.* FROM report r
             JOIN audit a ON r.audit_id = a.id
-            WHERE r.audit_id = ? ${(req.user.ruolo_id !== 1 && req.user.ruolo_id !== 2) ? 'AND a.tenant_id = ?' : ''}
+            WHERE r.audit_id = ? ${(req.user.ruolo_id !== 1 && req.user.ruolo_id !== 2 && req.user.ruolo_id !== 4) ? 'AND a.tenant_id = ?' : ''}
         `;
-        const params = (req.user.ruolo_id !== 1 && req.user.ruolo_id !== 2) ? [audit_id, req.user.tenant_id] : [audit_id];
+        const params = (req.user.ruolo_id !== 1 && req.user.ruolo_id !== 2 && req.user.ruolo_id !== 4) ? [audit_id, req.user.tenant_id] : [audit_id];
         const [reportRows] = await pool.promise().execute(query, params);
         if (reportRows.length === 0) return res.status(404).json({ success: false, message: 'Report non trovato o non accessibile' });
 
@@ -449,6 +436,41 @@ app.get('/api/report/:audit_id', async (req, res, next) => {
     } catch (err) { next(err); }
 });
 
+
+// GET Documentazione
+app.get('/api/documentazione', async (req, res, next) => {
+    try {
+        let query = `
+            SELECT r.id as report_id, r.data_generazione, a.id as audit_id, az.id as tenant_id, az.nome_azienda 
+            FROM report r 
+            JOIN audit a ON r.audit_id = a.id 
+            JOIN aziende az ON a.tenant_id = az.id
+        `;
+        let params = [];
+        if (req.user.ruolo_id !== 1 && req.user.ruolo_id !== 2 && req.user.ruolo_id !== 4) {
+            query += ' WHERE az.id = ?';
+            params.push(req.user.tenant_id);
+        }
+        query += ' ORDER BY az.nome_azienda ASC, r.data_generazione DESC';
+        
+        const [reportRows] = await pool.promise().execute(query, params);
+        
+        // Raggruppo per azienda (sottocartelle)
+        const documentazione = {};
+        reportRows.forEach(row => {
+            if (!documentazione[row.nome_azienda]) {
+                documentazione[row.nome_azienda] = [];
+            }
+            documentazione[row.nome_azienda].push({
+                report_id: row.report_id,
+                audit_id: row.audit_id,
+                data_generazione: row.data_generazione
+            });
+        });
+
+        res.json({ success: true, data: documentazione });
+    } catch (err) { next(err); }
+});
 
 // --- ERROR HANDLING GLOBALE ---
 app.use((err, req, res, next) => {
